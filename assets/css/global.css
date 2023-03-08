@@ -12,6 +12,9 @@
     --vivid-cyan-blue: #0693e3;
     --vivid-purple: #9b51e0;
     --grey: #ccc;
+    --white50: rgba(255,255,255,0.5);
+    --black90: rgba(0,0,0,0.9);
+    --black95: rgba(0,0,0,0.95);
   }
 
 html, body, iframe {
@@ -52,14 +55,14 @@ section#main {
     height: calc(100vh / 12 * 8);
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,1);
+    background-color: var(--black);
 }
 
 section#main img {
     position: relative;
     top: 40%;
     left: 40%;
-    background: rgba(255,255,255,0.5);
+    background: var(--white50);
     padding: 1vw;
     border-radius: 1vw;
     height: auto;
@@ -70,7 +73,7 @@ section#prayerbar {
     width: 100%;
     height: calc(100vw / 12 * 3);
     top: calc(100vh / 12 * 8);
-    background-color: rgba(0,0,0,0.9);
+    background-color: var(--black90);
 }
 
 section#sidebar {
@@ -78,7 +81,7 @@ section#sidebar {
     height: calc(100vh / 12 * 8);
     top: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.95);
+    background-color: var(--black95);
     text-align: center;
     padding-top: 6vh;
     -webkit-transition: background-color 2s ease-out;
@@ -201,7 +204,7 @@ section#ticker {
     width: 100%;
     height: calc(100vh / 12 * 1);
     top: calc(100vh / 12 * 11);
-    background-color: rgba(0,0,0,1);
+    background-color: var(--black);
     overflow: hidden;
 }
 
@@ -232,18 +235,13 @@ section#ticker {
     }
   }
   .ticker-wrap {
-    /* position: fixed;
-    top: 0; */
     width: 100%;
     overflow: hidden;
-    /* height: 4rem; */
-    /* background-color: rgba(0, 0, 0, 0.9); */
     padding-left: 100%;
     box-sizing: content-box;
   }
   .ticker-wrap .ticker {
     display: inline-block;
-    /* height: 4rem; */
     line-height: 10vh;
     white-space: nowrap;
     padding-right: 100%;

@@ -13,8 +13,8 @@
     --vivid-purple: #9b51e0;
     --grey: #ccc;
     --white50: rgba(255,255,255,0.5);
-    --black90: rgba(0,0,0,0.9);
-    --black95: rgba(0,0,0,0.95);
+    --white10: rgba(255,255,255,0.1);
+    --white5: rgba(255,255,255,0.05);
   }
 
 html, body, iframe {
@@ -34,10 +34,12 @@ html, body, iframe {
 }
   
 body {
+    background: var(--black);
     color: var(--white);
     font-family: "Helvetica Neue", Roboto, Helvetica, sans-serif;
     font-weight: 100;
     font-size: 1.5vw;
+    overflow: hidden;
 }
 
 h2 {
@@ -71,9 +73,9 @@ section#main img {
 
 section#prayerbar {
     width: 100%;
-    height: calc(100vw / 12 * 3);
+    height: calc(100vh / 12 * 3);
     top: calc(100vh / 12 * 8);
-    background-color: var(--black90);
+    background-color: var(--white10);
 }
 
 section#sidebar {
@@ -81,7 +83,7 @@ section#sidebar {
     height: calc(100vh / 12 * 8);
     top: 0;
     right: 0;
-    background-color: var(--black95);
+    background-color: var(--white5);
     text-align: center;
     padding-top: 6vh;
     -webkit-transition: background-color 2s ease-out;
@@ -130,7 +132,7 @@ span.prayer span.iqamah {
 }
 
 span.prayer svg {
-    height: 5.8vh;
+    height: 5vh;
 }
 
 span.prayer.active svg {

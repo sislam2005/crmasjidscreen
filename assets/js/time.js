@@ -229,7 +229,7 @@ async function timeCalc() {
     </span><span class='prayer${sunrise}'>
       <span class='start'>${timestoday.sunrise.trim()}</span>
       <span class='event'>${event[1].en} | ${event[1].ar}</span>
-      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" preserveAspectRatio="xMidYMid meet" fill="#ffffff" stroke="none">
+      <span class='iqamah'><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" preserveAspectRatio="xMidYMid meet" fill="#ffffff" stroke="none">
         <g transform="translate(0,208) scale(0.1,-0.1)">
           <path d="M1244 2026 c-17 -13 -19 -31 -24 -202 l-5 -188 -70 -12 c-94 -15
           -195 -56 -285 -116 l-74 -49 -126 125 c-69 68 -135 127 -147 131 -32 9 -77
@@ -242,7 +242,7 @@ async function timeCalc() {
           -6 -36 -14z m190 -526 c247 -63 439 -271 481 -522 l6 -38 -641 0 -641 0 6 38
           c42 249 233 458 477 522 97 25 214 25 312 0z"/>
         </g>
-      </svg>
+      </svg></span>
     </span><span class='prayer${dhuhr}'>
       <span class='start'>${timestoday.dhuhr.trim()}</span>
       <span class='event'>${event[2].en} | ${event[2].ar}</span>

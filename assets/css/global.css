@@ -38,6 +38,7 @@ body {
     font-family: "Helvetica Neue", Roboto, Helvetica, sans-serif;
     font-weight: 100;
     font-size: 1.5vw;
+    overflow: hidden;
 }
 
 h2 {

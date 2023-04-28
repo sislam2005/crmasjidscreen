@@ -26,7 +26,8 @@ async function fetchJamaat(year) {
 async function timeCalc() {
   now = moment().locale('en-gb');
   // now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
-  nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'at time for 10 minutes from the start of Iqamah
+  nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
+  nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 
   // refresh data every day
   if (today != now.locale('en-gb').format('YYYY-MM-DD ')) {
@@ -185,7 +186,7 @@ async function timeCalc() {
 
                         // Isha start
                         if (now < ishaiqamahmoment) { isha = ' active'; nextevent = 5, iqamah = 1, nexttime = ishaiqamahmoment; } else // Isha starts, before Iqamah
-                          if (nowminus < ishaiqamahmoment) { isha = ' active'; nextevent = 5, iqamah = 0, salah = 1, nexttime = nextfajrmoment; } else // Isha starts and shows for 10 minutes
+                          if (nowminus20 < ishaiqamahmoment) { isha = ' active'; nextevent = 5, iqamah = 0, salah = 1, nexttime = nextfajrmoment; } else // Isha starts and shows for 10 minutes
                             if (now < nextfajrmoment) { maghrib = ''; isha = ' active'; nextevent = 6, iqamah = 0, salah = 0, nexttime = nextfajrmoment; } else { console.log('no match'); }
 
   // an override for showing Sunrise as the next countdown on the sidebar, while the event times are of Dhuhr
@@ -207,7 +208,7 @@ async function timeCalc() {
 
   let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
   <h1 id="timediv">
-    ${event[nextevent].en} Jama'at
+    ${event[nextevent].en} Jama'ah
   </h1>`;
 
   let eventspace = `<h2><span id="nextar">${event[nextevent].en} time | وقت ${event[nextevent].ar}</span></h2>

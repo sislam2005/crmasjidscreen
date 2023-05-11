@@ -92,6 +92,18 @@ section#sidebar {
     transition: background-color 2s ease-out;
 }
 
+body.prayerbar section#prayerbar {
+    top: 0;
+}
+
+body.prayerbar section#main, body.prayerbar section#sidebar, body.sidebar section#main, body.sidebar section#prayerbar {
+    display: none;
+}
+
+body.sidebar section#sidebar {
+    left: 0;
+}
+
 /* Prayer elements */
 
 #clockdiv {

@@ -1,3 +1,9 @@
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+let style = params.style; // get value of "style" param
+document.body.classList.add(style);
+
 let now = moment().locale('en-gb');
 // let now = moment('2023-01-01 00:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
 

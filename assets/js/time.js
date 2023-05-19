@@ -295,4 +295,4 @@ async function timeCalc() {
 timeCalc(); // run immediately on page load, and then every 1 second
 var interval = setInterval(function() {
   timeCalc();
-}, 1000);
+}, 100000000);

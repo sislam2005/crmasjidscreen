@@ -94,6 +94,7 @@ section#sidebar {
 
 body.prayerbar section#prayerbar {
     top: 0;
+    height: 100%;
 }
 
 body.prayerbar section#main, body.prayerbar section#sidebar, body.sidebar section#main, body.sidebar section#prayerbar {
@@ -101,7 +102,9 @@ body.prayerbar section#main, body.prayerbar section#sidebar, body.sidebar sectio
 }
 
 body.sidebar section#sidebar {
-    left: 0;
+    top: -4vw;
+    width: 100%;
+    zoom: 250%;
 }
 
 /* Prayer elements */
@@ -123,6 +126,10 @@ span.prayer {
     padding-top: 3vh;
 }
 
+body.prayerbar span.prayer {
+    padding-top: 17vh;
+}
+
 span.prayer.active {
     background: var(--amber);
     color: var(--black);
@@ -139,12 +146,20 @@ span.prayer span.event {
     font-weight: 100;
 }
 
+body.prayerbar span.prayer span.event {
+    line-height: 30vh;
+}
+
 span.prayer span.iqamah {
     font-size: 4vw;
 }
 
 span.prayer svg {
     height: 5vh;
+}
+
+body.prayerbar span.prayer svg {
+    height: 17vh;
 }
 
 span.prayer.active svg {

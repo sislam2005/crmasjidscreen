@@ -15,10 +15,6 @@ section#prayerbar {
     background-color: var(--blue);
 }
 
-section#sidebar {
-    background-color: var(--blue);
-}
-
 /* Prayer elements */
 
 #clockdiv {

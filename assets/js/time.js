@@ -306,5 +306,5 @@ timeCalc(); // run immediately on page load, and then every 1 second
 
 window.onload = function () {
   setInterval(timeCalc, 1000); // timer every second
-  setInterval(change, 3000); // image swap every 20 seconds
+  setInterval(change, 20000); // image swap every 20 seconds
 };

@@ -61,15 +61,8 @@ section#main {
     background-color: var(--black);
 }
 
-section#main img2 {
-    position: relative;
-    top: 40%;
-    left: 40%;
-    background: var(--white50);
-    padding: 1vw;
-    border-radius: 1vw;
-    height: auto;
-    width: 14vw;
+section#main img {
+    max-width: 100%;
 }
 
 section#prayerbar {

@@ -10,6 +10,7 @@
     --vivid-green-cyan: #00d084;
     --pale-cyan-blue: #8ed1fc;
     --vivid-cyan-blue: #0693e3;
+    --blue: #0693e3;
     --vivid-purple: #9b51e0;
     --grey: #ccc;
     --white50: rgba(255,255,255,0.5);
@@ -48,6 +49,10 @@ h2 {
     font-weight: 100;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 section {
     position: absolute;
 }
@@ -61,19 +66,12 @@ section#main {
 }
 
 section#main img {
-    position: relative;
-    top: 40%;
-    left: 40%;
-    background: var(--white50);
-    padding: 1vw;
-    border-radius: 1vw;
-    height: auto;
-    width: 14vw;
+    max-width: 100%;
 }
 
 section#prayerbar {
     width: 100%;
-    height: calc(100vh / 12 * 3);
+    height: calc(100vh / 12 * 4);
     top: calc(100vh / 12 * 8);
     background-color: var(--white10);
 }
@@ -123,7 +121,7 @@ span.prayer {
     width: calc(100vw / 6);
     height: 100%;
     text-align: center;
-    padding-top: 3vh;
+    padding-top: 6vh;
 }
 
 body.prayerbar span.prayer {
@@ -142,7 +140,7 @@ span.prayer span {
 
 span.prayer span.event {
     font-size: 2vw;
-    line-height: 8vh;
+    line-height: 10vh;
     font-weight: 100;
 }
 
@@ -225,68 +223,4 @@ section#sidebar.salah h2 {
 section#sidebar.salah #timediv {
     font-size: 6vw;
     padding-bottom: 1vh;
-}
-
-/* TICKER */
-
-section#ticker {
-    width: 100%;
-    height: calc(100vh / 12 * 1);
-    top: calc(100vh / 12 * 11);
-    background-color: var(--black);
-    overflow: hidden;
-}
-
-* {
-    box-sizing: border-box;
-  }
-  
-  @-webkit-keyframes ticker {
-    0% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      visibility: visible;
-    }
-    100% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
-  @keyframes ticker {
-    0% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      visibility: visible;
-    }
-    100% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
-  .ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    padding-left: 100%;
-    box-sizing: content-box;
-  }
-  .ticker-wrap .ticker {
-    display: inline-block;
-    line-height: 10vh;
-    white-space: nowrap;
-    padding-right: 100%;
-    box-sizing: content-box;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-name: ticker;
-    animation-name: ticker;
-    -webkit-animation-duration: 30s;
-    animation-duration: 30s;
-  }
-.ticker-wrap .ticker__item {
-    display: inline-block;
-    padding: 0 2vw;
-    font-size: 3vw;
-    color: var(--white);
 }

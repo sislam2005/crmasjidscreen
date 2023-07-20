@@ -51,13 +51,3 @@ section#sidebar.iqamah, section#sidebar.salah {
 section#sidebar.iqamah #clockdiv, section#sidebar.iqamah #timediv, section#sidebar.salah #clockdiv, section#sidebar.salah #timediv {
     border-color: var(--black);
 }
-
-/* TICKER */
-
-section#ticker {
-    background-color: var(--black);
-}
-
-.ticker-wrap .ticker__item {
-    color: var(--white);
-}

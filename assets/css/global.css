@@ -49,6 +49,10 @@ h2 {
     font-weight: 100;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 section {
     position: absolute;
 }
@@ -219,68 +223,4 @@ section#sidebar.salah h2 {
 section#sidebar.salah #timediv {
     font-size: 6vw;
     padding-bottom: 1vh;
-}
-
-/* TICKER */
-
-section#ticker {
-    width: 100%;
-    height: calc(100vh / 12 * 1);
-    top: calc(100vh / 12 * 11);
-    background-color: var(--black);
-    overflow: hidden;
-}
-
-* {
-    box-sizing: border-box;
-  }
-  
-  @-webkit-keyframes ticker {
-    0% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      visibility: visible;
-    }
-    100% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
-  @keyframes ticker {
-    0% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      visibility: visible;
-    }
-    100% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
-  .ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    padding-left: 100%;
-    box-sizing: content-box;
-  }
-  .ticker-wrap .ticker {
-    display: inline-block;
-    line-height: 10vh;
-    white-space: nowrap;
-    padding-right: 100%;
-    box-sizing: content-box;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-name: ticker;
-    animation-name: ticker;
-    -webkit-animation-duration: 30s;
-    animation-duration: 30s;
-  }
-.ticker-wrap .ticker__item {
-    display: inline-block;
-    padding: 0 2vw;
-    font-size: 3vw;
-    color: var(--white);
 }

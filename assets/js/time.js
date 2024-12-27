@@ -77,48 +77,48 @@ async function timeCalc() {
       "slug": "fajr",
       "en": "Fajr",
       "ar": "الفجر",
-      "start": timestoday.fajr.trim(),
+      "athan": timestoday.fajr.trim(),
       "iqamah": jamaattoday.fajr
     }, {
       "slug": "sunrise",
       "en": "Sunrise",
       "ar": "شروق",
-      "start": timestoday.sunrise.trim()
+      "athan": timestoday.sunrise.trim()
     }, {
       "slug": "dhuhr",
       "en": "Dhuhr",
       "ar": "الظهر",
-      "start": timestoday.dhuhr.trim(),
+      "athan": timestoday.dhuhr.trim(),
       "iqamah": jamaattoday.dhuhr
     }, {
       "slug": "asr",
       "en": "Asr",
       "ar": "العصر",
-      "start": timestoday.asr.trim(),
+      "athan": timestoday.asr.trim(),
       "iqamah": jamaattoday.asr
     }, {
       "slug": "maghrib",
       "en": "Maghrib",
       "ar": "المغرب",
-      "start": timestoday.maghrib.trim(),
+      "athan": timestoday.maghrib.trim(),
       "iqamah": jamaattoday.maghrib
     }, {
       "slug": "isha",
       "en": "Isha",
       "ar": "العشاء",
-      "start": timestoday.isha.trim(),
+      "athan": timestoday.isha.trim(),
       "iqamah": jamaattoday.isha
     }, {
       "slug": "fajr",
       "en": "Fajr",
       "ar": "الفجر",
-      "start": nextfajr.trim(),
+      "athan": nextfajr.trim(),
       "iqamah": nextfajriqamah,
     }, {
       "slug": "jumuah",
       "en": "Jumu'ah",
       "ar": "الجمعة",
-      "start": jamaattoday.jumuah1,
+      "athan": jamaattoday.jumuah1,
       "iqamah": jamaattoday.jumuah2
     }
   ];
@@ -133,7 +133,7 @@ async function timeCalc() {
   nexttime = '',
   iqamah = 0,
   salah = 0,
-  event1name = 'Start | بداية',
+  event1name = 'Athan | أذان',
   event1time = '',
   event2name = 'Iqamah | إقامة',
   event2time = '';
@@ -202,7 +202,7 @@ async function timeCalc() {
   
   // work out time remaining and upcoming event times for the sidebar
   let timetogo = moment.duration(nexttime.diff(now));
-  event1time = event[nextevent].start, event2time = event[nextevent].iqamah;
+  event1time = event[nextevent].athan, event2time = event[nextevent].iqamah;
 
   let clockspace = `<span id="hijri">${now.format('iD iMMMM iYYYY')}</span><br />
   <span id="date">${now.format('dddd LL')}</span>

@@ -74,6 +74,7 @@ section#prayerbar {
     height: calc(100vh / 12 * 4);
     top: calc(100vh / 12 * 8);
     background-color: #fff;
+	color: #000;
 }
 
 section#sidebar {

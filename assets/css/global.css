@@ -62,7 +62,7 @@ section#main {
     height: calc(100vh / 12 * 8);
     top: 0;
     left: 0;
-    background-color: var(--black);
+
 }
 
 section#main img {

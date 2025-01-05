@@ -130,8 +130,8 @@ body.prayerbar span.prayer {
 }
 
 span.prayer.active {
-    background: var(--amber);
-    color: var(--black);
+    background: rgb(0, 150, 183);
+    color: #fff;
 }
 
 span.prayer span {

@@ -5,7 +5,7 @@ let style = params.style; // get value of "style" param
 document.body.classList.add(style);
 
 let now = moment().locale('en-gb');
-// let now = moment('2023-01-01 00:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
+let now = moment('2025-01-10 11:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY ///
 
 let starttimes, jamaat, today;
 
@@ -31,7 +31,7 @@ async function fetchJamaat(year) {
 
 async function timeCalc() {
   now = moment().locale('en-gb');
-  // now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
+  now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY //
   nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
   nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 
@@ -45,10 +45,10 @@ async function timeCalc() {
   let tomorrow = moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD '); // tomorrow is used for Fajr after Isha
 
   // find today's start times from the array
-  let timestoday = starttimes.filter(obj => {
-    return obj.date === now.format('YYYY-MM-DD')
+  let timestoday = starttimes.times.filter(obj => {
+    return obj.day === now.format('MMM DD ddd')
   });
-  if(timestoday.length != 0) { timestoday = timestoday[0]; } 
+  if(timestoday.length != 0) { timestoday = timestoday[0].times; } 
 
   // find today's Jama'at times from the array
   let jamaattoday = jamaat.filter(obj => {
@@ -58,10 +58,10 @@ async function timeCalc() {
   if(jamaattoday.length != 0) { jamaattoday = jamaattoday[0]; } 
 
   // find tomorrow's Fajr time to use after Isha
-  let nextfajr = starttimes.filter(obj => {
-    return obj.date == moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD')
+  let nextfajr = starttimes.times.filter(obj => {
+    return obj.day == moment(now).locale('en-gb').add(1, 'day').format('MMM DD ddd')
   });
-  if(nextfajr.length != 0) { nextfajr = nextfajr[0].fajr } else { nextfajr = timestoday.fajr }
+  if(nextfajr.length != 0) { nextfajr = nextfajr[0].times.fajr } else { nextfajr = timestoday.fajr }
 
   // find tomorrow's Fajr Iqamah time to use after Isha
   let nextfajriqamah = jamaat.filter(obj => {
@@ -237,7 +237,7 @@ async function timeCalc() {
     </span><span class='prayer${sunrise}'>
       <span class='start'>${timestoday.sunrise.trim()}</span>
       <span class='event'>${event[1].en} | ${event[1].ar}</span>
-      <span class='iqamah'><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" preserveAspectRatio="xMidYMid meet" fill="#000" stroke="none">
+      <span class='iqamah'><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" preserveAspectRatio="xMidYMid meet" fill="#ffffff" stroke="none">
         <g transform="translate(0,208) scale(0.1,-0.1)">
           <path d="M1244 2026 c-17 -13 -19 -31 -24 -202 l-5 -188 -70 -12 c-94 -15
           -195 -56 -285 -116 l-74 -49 -126 125 c-69 68 -135 127 -147 131 -32 9 -77

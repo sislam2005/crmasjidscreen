@@ -29,8 +29,8 @@ async function fetchJamaat(year) {
 }
 
 async function timeCalc() {
-  now = moment().locale('en-gb');
-// now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
+//   now = moment().locale('en-gb');
+  now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
   nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
   nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 

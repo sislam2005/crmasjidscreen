@@ -1,4 +1,14 @@
-[
+{
+  "query": {
+    "latitude": "51.45733179477075",
+    "longitude": "0.9500007357439658",
+    "timeZone": "Europe/London",
+    "method": "0",
+    "year": "2025",
+    "both": "false",
+    "time": "0"
+  },
+    "times": [
     {
         "day": "Jan 01 Wed",
         "times": {

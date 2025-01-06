@@ -5,7 +5,7 @@ let style = params.style; // get value of "style" param
 document.body.classList.add(style);
 
 let now = moment().locale('en-gb');
-// let now = moment('2023-01-01 00:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
+let now = moment('2025-01-10 00:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); 
 
 let starttimes, jamaat, today;
 
@@ -31,7 +31,7 @@ async function fetchJamaat(year) {
 
 async function timeCalc() {
   now = moment().locale('en-gb');
-  // now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
+  now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
   nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
   nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 
@@ -171,9 +171,8 @@ async function timeCalc() {
 
           // Sunrise start
           if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
-
             // Dhuhr start
-            if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Jumu'ah 1", event2name = "Jumu'ah 2"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
+            if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Khutbah", event2name = "Salah"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
             if (now < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 1, nexttime = dhuhriqamahmoment; } else // Dhuhr starts, before Iqamah
               if (nowminus < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 0, salah = 1, nexttime = jumuah2iqamahmoment, event1name = "Jumu'ah 1", event2name = "Jumu'ah 2"; } else // Jumu'ah 1 Iqamah starts and shows for 10 minutes
               if (nowminus < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 0, salah = 1, nexttime = asrmoment; } else // Dhuhr Iqamah starts and shows for 10 minutes

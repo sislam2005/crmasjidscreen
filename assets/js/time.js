@@ -169,7 +169,7 @@ async function timeCalc() {
         if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = sunrisemoment; } else // after Fajr Salah & before Sunrise
 
           // Sunrise start
-          if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
+       // if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
             // Dhuhr start
             if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Khutbah", event2name = "Salah"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
             if (now < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 1, nexttime = dhuhriqamahmoment; } else // Dhuhr starts, before Iqamah

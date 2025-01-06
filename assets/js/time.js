@@ -61,7 +61,7 @@ async function timeCalc() {
   let nextfajr = starttimes.filter(obj => {
     return obj.date == moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD')
   });
-  if(nextfajr.length != 0) { nextfajr = nextfajr[0].times.fajr } else { nextfajr = timestoday.fajr }
+  if(nextfajr.length != 0) { nextfajr = nextfajr[0].fajr } else { nextfajr = timestoday.fajr }
 
   // find tomorrow's Fajr Iqamah time to use after Isha
   let nextfajriqamah = jamaat.filter(obj => {

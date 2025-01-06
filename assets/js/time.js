@@ -49,7 +49,6 @@ async function timeCalc() {
     return obj.date === now.format('YYYY-MM-DD')
   });
   if(timestoday.length != 0) { timestoday = timestoday[0]; } 
-  console.log(timestoday);
 
   // find today's Jama'at times from the array
   let jamaattoday = jamaat.filter(obj => {

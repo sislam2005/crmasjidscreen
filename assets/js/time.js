@@ -45,10 +45,10 @@ async function timeCalc() {
   let tomorrow = moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD '); // tomorrow is used for Fajr after Isha
 
   // find today's start times from the array
-  let timestoday = starttimes.times.filter(obj => {
-    return obj.day === now.format('MMM DD ddd')
+  let timestoday = starttimes.filter(obj => {
+    return obj.date === now.format('YYYY-MM-DD')
   });
-  if(timestoday.length != 0) { timestoday = timestoday[0].times; } 
+  if(timestoday.length != 0) { timestoday = timestoday[0]; } 
 
   // find today's Jama'at times from the array
   let jamaattoday = jamaat.filter(obj => {
@@ -58,10 +58,10 @@ async function timeCalc() {
   if(jamaattoday.length != 0) { jamaattoday = jamaattoday[0]; } 
 
   // find tomorrow's Fajr time to use after Isha
-  let nextfajr = starttimes.times.filter(obj => {
-    return obj.day == moment(now).locale('en-gb').add(1, 'day').format('MMM DD ddd')
+  let nextfajr = starttimes.filter(obj => {
+    return obj.date == moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD')
   });
-  if(nextfajr.length != 0) { nextfajr = nextfajr[0].times.fajr } else { nextfajr = timestoday.fajr }
+  if(nextfajr.length != 0) { nextfajr = nextfajr[0].fajr } else { nextfajr = timestoday.fajr }
 
   // find tomorrow's Fajr Iqamah time to use after Isha
   let nextfajriqamah = jamaat.filter(obj => {

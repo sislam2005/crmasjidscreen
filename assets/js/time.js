@@ -60,7 +60,7 @@ async function timeCalc() {
 
   // find tomorrow's Fajr time to use after Isha
   let nextfajr = starttimes.filter(obj => {
-    return obj.date == moment(now).locale('en-gb').add(1, 'day').format('MMM DD ddd')
+    return obj.date == moment(now).locale('en-gb').add(1, 'day').format('YYYY-MM-DD')
   });
   if(nextfajr.length != 0) { nextfajr = nextfajr[0].times.fajr } else { nextfajr = timestoday.fajr }
 

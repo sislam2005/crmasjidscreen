@@ -122,7 +122,7 @@ async function timeCalc() {
     }
   ];
 
-let fajr = '',
+  let fajr = '',
   sunrise = '',
   dhuhr = '',
   asr = '',
@@ -137,76 +137,39 @@ let fajr = '',
   event2name = 'Iqamah | إقامة',
   event2time = '';
 
-let day = moment(now).weekday(); // 4 = Friday
-let fajrmoment = moment(today + timestoday.fajr, 'YYYY-MM-DD HH:mm');
-let sunrisemoment = moment(today + timestoday.sunrise, 'YYYY-MM-DD HH:mm');
-let dhuhrmoment = moment(today + timestoday.dhuhr, 'YYYY-MM-DD HH:mm');
-let asrmoment = moment(today + timestoday.asr, 'YYYY-MM-DD HH:mm');
-let maghribmoment = moment(today + timestoday.maghrib, 'YYYY-MM-DD HH:mm');
-let ishamoment = moment(today + timestoday.isha, 'YYYY-MM-DD HH:mm');
+  let day = moment(now).weekday(); // 4 = Friday
+  let fajrmoment = moment(today + timestoday.fajr, 'YYYY-MM-DD HH:mm');
+  let sunrisemoment = moment(today + timestoday.sunrise, 'YYYY-MM-DD HH:mm');
+  let dhuhrmoment = moment(today + timestoday.dhuhr, 'YYYY-MM-DD HH:mm');
+  let asrmoment = moment(today + timestoday.asr, 'YYYY-MM-DD HH:mm');
+  let maghribmoment = moment(today + timestoday.maghrib, 'YYYY-MM-DD HH:mm');
+  let ishamoment = moment(today + timestoday.isha, 'YYYY-MM-DD HH:mm');
 
-let fajriqamahmoment = moment(today + jamaattoday.fajr, 'YYYY-MM-DD HH:mm');
-let dhuhriqamahmoment, jumuah1iqamahmoment, jumuah2iqamahmoment, jumuahdhuhr;
-
-if (day === 4) { // If it's Friday
-  jumuah1iqamahmoment = moment(today + jamaattoday.jumuah1, 'YYYY-MM-DD HH:mm');
-  jumuah2iqamahmoment = moment(today + jamaattoday.jumuah2, 'YYYY-MM-DD HH:mm');
-  jumuahdhuhr = jamaattoday.jumuah1;
-  dhuhriqamahmoment = jumuah1iqamahmoment;
-  event[2].iqamah = jumuahdhuhr;
-
-  // Check if it's 3 hours after sunrise
-  if (now.isAfter(sunrisemoment.clone().add(3, 'hours'))) {
-    dhuhr = ' active'; // Set dhuhr to active
-    nextevent = 7; // Set next event to Jumu'ah
-    iqamah = 0; // No iqamah yet
-    nexttime = jumuah1iqamahmoment; // Next time is Jumu'ah 1 Iqamah
-    event1name = "Khutbah"; // Set event names
-    event2name = "Salah";
+  let fajriqamahmoment = moment(today + jamaattoday.fajr, 'YYYY-MM-DD HH:mm');
+  let dhuhriqamahmoment, jumuah1iqamahmoment, jumuah2iqamahmoment, jumuahdhuhr;
+  if (day === 4) {
+    jumuah1iqamahmoment = moment(today + jamaattoday.jumuah1, 'YYYY-MM-DD HH:mm');
+    jumuah2iqamahmoment = moment(today + jamaattoday.jumuah2, 'YYYY-MM-DD HH:mm');
+    jumuahdhuhr = jamaattoday.jumuah1;
+    dhuhriqamahmoment = jumuah1iqamahmoment;
+    event[2].iqamah = jumuahdhuhr;
+  } else {
+    dhuhriqamahmoment = moment(today + jamaattoday.dhuhr, 'YYYY-MM-DD HH:mm');
+    jumuahdhuhr = jamaattoday.dhuhr.trim();
   }
-} else {
-  dhuhriqamahmoment = moment(today + jamaattoday.dhuhr, 'YYYY-MM-DD HH:mm');
-  jumuahdhuhr = jamaattoday.dhuhr.trim();
-}
+  let asriqamahmoment = moment(today + jamaattoday.asr, 'YYYY-MM-DD HH:mm');
+  let maghribiqamahmoment = moment(today + jamaattoday.maghrib, 'YYYY-MM-DD HH:mm');
+  let ishaiqamahmoment = moment(today + jamaattoday.isha, 'YYYY-MM-DD HH:mm');
 
-let asriqamahmoment = moment(today + jamaattoday.asr, 'YYYY-MM-DD HH:mm');
-let maghribiqamahmoment = moment(today + jamaattoday.maghrib, 'YYYY-MM-DD HH:mm');
-let ishaiqamahmoment = moment(today + jamaattoday.isha, 'YYYY-MM-DD HH:mm');
+  if (now < fajrmoment) { nextevent = 0, iqamah = 0, nexttime = fajrmoment; } else // before Fajr
+  
+    // Fajr start
+    if (now < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 1, nexttime = fajriqamahmoment; } else // Fajr starts, before Iqamah
+      if (nowminus < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 0, salah = 1, nexttime = sunrisemoment; } else // Fajr Iqamah starts and shows for 10 minutes
+        if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = sunrisemoment; } else // after Fajr Salah & before Sunrise
 
-// Event timing logic
-if (now < fajrmoment) { 
-  nextevent = 0; 
-  iqamah = 0; 
-  nexttime = fajrmoment; 
-} else { // before Fajr
-  // Fajr start
-  if (now < fajriqamahmoment) { 
-    fajr = ' active'; 
-    nextevent = 0; 
-    iqamah = 1; 
-    nexttime = fajriqamahmoment; 
-  } else if (nowminus < fajriqamahmoment) { 
-    fajr = ' active'; 
-    nextevent = 0; 
-    iqamah = 0; 
-    salah = 1; 
-    nexttime = sunrisemoment; 
-  } else if (now < sunrisemoment) { 
-    fajr = ' active'; 
-    nextevent = 2; 
-    iqamah = 0; 
-    salah = 0; 
-    nexttime = sunrisemoment; 
-  } else { // after Fajr Salah & before Sunrise
-    // Sunrise start
-    if (now < dhuhrmoment) { 
-      sunrise = ' active'; 
-      nextevent = 2; 
-      iqamah = 0; 
-      salah = 0; 
-      nexttime = dhuhrmoment; 
-    } else { // after Sunrise & before Dhuhr
-
+          // Sunrise start
+          if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
             // Dhuhr start
             if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Khutbah", event2name = "Salah"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
             if (now < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 1, nexttime = dhuhriqamahmoment; } else // Dhuhr starts, before Iqamah

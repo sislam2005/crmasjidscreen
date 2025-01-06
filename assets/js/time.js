@@ -3,8 +3,8 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 let style = params.style; // get value of "style" param
 document.body.classList.add(style);
-let now = moment().locale('en-gb');
-//let now = moment('2023-01-10 11:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
+//let now = moment().locale('en-gb');
+let now = moment('2025-01-10 11:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
 
 let starttimes, jamaat, today;
 

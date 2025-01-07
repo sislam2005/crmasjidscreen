@@ -51,7 +51,10 @@
                 csvData.slice(1).forEach(row => {
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
-                    const date = new Date(entry["d_date"]);
+                    
+                    // Ensure correct date parsing (assuming date format is DD/MM/YYYY)
+                    const dateParts = entry["d_date"].split('/');
+                    const date = new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`); // MM/DD/YYYY format
 
                     startTimes.push({
                         "date": entry["d_date"],
@@ -71,7 +74,7 @@
                         "isha": entry["isha_jamah"]
                     };
 
-                    // Check if it's Friday (day 5)
+                    // Check if it's Friday (day 5) after correcting date parsing
                     if (date.getDay() === 5) {
                         jamatEntry["jumuah1"] = jumuah1Time;
                         jamatEntry["jumuah2"] = jumuah2Time;

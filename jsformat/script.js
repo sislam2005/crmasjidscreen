@@ -1,5 +1,6 @@
 let startTimes = [];
 let jamatTimes = [];
+let jummahKhutbah, jummahSalah;
 
 function processFile() {
     const fileInput = document.getElementById('fileInput');
@@ -19,7 +20,16 @@ function processFile() {
         startTimes = [];
         jamatTimes = [];
 
+        let fridayFound = false;  // Flag to check if Friday is present in the data
+
         jsonData.forEach(entry => {
+            const date = new Date(entry["d_date"]);
+            if (date.getDay() === 5) {  // 5 means Friday
+                fridayFound = true;
+                // Show the Jummah time inputs
+                document.getElementById('jummahInputs').style.display = 'block';
+            }
+
             // Extract start times
             startTimes.push({
                 "date": entry["d_date"],
@@ -40,30 +50,49 @@ function processFile() {
                 "isha": entry["isha_jamah"]
             };
 
-            // If the date is a Friday, ask for Jummah times
-            const date = new Date(entry["d_date"]);
-            if (date.getDay() === 5) {  // 5 means Friday
-                document.getElementById('jummahInputs').style.display = 'block';
-
-                const jummahKhutbah = document.getElementById('jummahKhutbah').value;
-                const jummahSalah = document.getElementById('jummahSalah').value;
-
-                // If Jummah times are provided, add them to the entry
-                if (jummahKhutbah && jummahSalah) {
-                    jamatEntry["jumuah1"] = jummahKhutbah;
-                    jamatEntry["jumuah2"] = jummahSalah;
+            // If the date is a Friday, we will add the Jummah times (after they're inputted)
+            if (date.getDay() === 5) {
+                if (!jummahKhutbah || !jummahSalah) {
+                    alert("Please input the Jummah times before proceeding.");
+                    return;
                 }
+                jamatEntry["jumuah1"] = jummahKhutbah;
+                jamatEntry["jumuah2"] = jummahSalah;
             }
 
             jamatTimes.push(jamatEntry);
         });
 
-        // Show download buttons
+        // If no Fridays were found, alert the user
+        if (!fridayFound) {
+            alert("No Fridays found in the uploaded data.");
+            return;
+        }
+
+        // Show download buttons after processing the file
         document.getElementById('downloadStartTimes').style.display = 'inline-block';
         document.getElementById('downloadJamatTimes').style.display = 'inline-block';
     };
 
     reader.readAsText(file);
+}
+
+// Function to handle Jummah times input and trigger file processing
+function submitJummahTimes() {
+    jummahKhutbah = document.getElementById('jummahKhutbah').value;
+    jummahSalah = document.getElementById('jummahSalah').value;
+
+    // Check if both Jummah times are filled
+    if (!jummahKhutbah || !jummahSalah) {
+        alert("Please input both Jummah Khutbah and Salah times.");
+        return;
+    }
+
+    // Hide the Jummah input fields after submission
+    document.getElementById('jummahInputs').style.display = 'none';
+
+    // Proceed with processing the file
+    processFile();
 }
 
 // Function to download the processed JSON files

@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON File Converter</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Prayer Times JSON Processor</title>
 </head>
 <body>
 
-    <div class="container">
-        <h1>JSON File Converter</h1>
-        <p>Upload a JSON file to split it into Start Times and Jamat Times files.</p>
-        
-        <input type="file" id="fileInput" accept=".json">
-        <button id="convertButton" onclick="processFile()">Convert</button>
+<h1>Prayer Times Processor</h1>
 
-        <div id="jummahInputs" style="display:none;">
-            <h3>Enter Jummah Times (For Fridays only):</h3>
-            <label for="jummahKhutbah">Jummah Khutbah Time: </label>
-            <input type="time" id="jummahKhutbah">
-            <br>
-            <label for="jummahSalah">Jummah Salah Time: </label>
-            <input type="time" id="jummahSalah">
-        </div>
+<!-- File Input -->
+<input type="file" id="fileInput" accept=".json" onchange="processFile()">
+<br>
 
-        <div id="output">
-            <h2>Output Files</h2>
-            <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
-            <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
-        </div>
-    </div>
+<!-- Jummah Times Input (Hidden until needed) -->
+<div id="jummahInputs" style="display:none;">
+    <label for="jummahKhutbah">Jummah Khutbah Time:</label>
+    <input type="time" id="jummahKhutbah" required>
+    <br>
+    
+    <label for="jummahSalah">Jummah Salah Time:</label>
+    <input type="time" id="jummahSalah" required>
+    <br>
+    
+    <button onclick="submitJummahTimes()">Submit Jummah Times</button>
+</div>
 
-    <script src="script.js"></script>
+<!-- Download Buttons (Initially hidden) -->
+<button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
+<button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+
 </body>
 </html>

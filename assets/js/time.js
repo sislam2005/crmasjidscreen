@@ -166,7 +166,7 @@ async function timeCalc() {
     // Fajr start
     if (now < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 1, nexttime = fajriqamahmoment; } else // Fajr starts, before Iqamah
       if (nowminus < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 0, salah = 1, nexttime = sunrisemoment; } else // Fajr Iqamah starts and shows for 10 minutes
-        if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = sunrisemoment; } else // after Fajr Salah & before Sunrise
+        if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Fajr Salah & before Sunrise
 
           // Sunrise start
        // if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr

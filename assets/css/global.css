@@ -83,7 +83,7 @@ section#sidebar {
     top: 0;
     right: 0;
     background-color: rgb(0, 150, 183);
-	color: #fff
+	color: #fff;
     text-align: center;
     padding-top: 6vh;
     -webkit-transition: background-color 2s ease-out;

@@ -214,7 +214,10 @@ async function timeCalc() {
 let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
   <h1 id="timediv" style="display: none;">
     ${event[nextevent].en} Jama'ah
-  </h1>`;
+  </h1>
+    <section id="sidebar" style="display: none;"></section>
+  <section id="prayerbar" style="display: none;"></section>`;
+  
   let eventspace = `<h2><span id="nextar">${event[nextevent].en} time | وقت ${event[nextevent].ar}</span></h2>
   <span class="prayer">
       <span class="time">${event1time}</span>

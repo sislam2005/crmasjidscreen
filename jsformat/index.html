@@ -15,6 +15,15 @@
         <input type="file" id="fileInput" accept=".json">
         <button id="convertButton" onclick="processFile()">Convert</button>
 
+        <div id="jummahInputs" style="display:none;">
+            <h3>Enter Jummah Times (For Fridays only):</h3>
+            <label for="jummahKhutbah">Jummah Khutbah Time: </label>
+            <input type="time" id="jummahKhutbah">
+            <br>
+            <label for="jummahSalah">Jummah Salah Time: </label>
+            <input type="time" id="jummahSalah">
+        </div>
+
         <div id="output">
             <h2>Output Files</h2>
             <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>

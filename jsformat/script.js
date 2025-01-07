@@ -31,14 +31,31 @@ function processFile() {
                 "isha": entry["isha_begins"]
             });
 
-            // Extract jamat times
-            jamatTimes.push({
+            // Prepare the jamat times entry
+            const jamatEntry = {
                 "date": entry["d_date"],
                 "fajr": entry["fajr_jamah"],
                 "dhuhr": entry["zuhr_jamah"],
                 "asr": entry["asr_jamah"],
                 "isha": entry["isha_jamah"]
-            });
+            };
+
+            // If the date is a Friday, ask for Jummah times
+            const date = new Date(entry["d_date"]);
+            if (date.getDay() === 5) {  // 5 means Friday
+                document.getElementById('jummahInputs').style.display = 'block';
+
+                const jummahKhutbah = document.getElementById('jummahKhutbah').value;
+                const jummahSalah = document.getElementById('jummahSalah').value;
+
+                // If Jummah times are provided, add them to the entry
+                if (jummahKhutbah && jummahSalah) {
+                    jamatEntry["jumuah1"] = jummahKhutbah;
+                    jamatEntry["jumuah2"] = jummahSalah;
+                }
+            }
+
+            jamatTimes.push(jamatEntry);
         });
 
         // Show download buttons

@@ -230,7 +230,6 @@ let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
 // Check if we are within the 10-minute window after the Iqamah time
 if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
   // Set the background color of the whole view to black
-  document.querySelector('#wholeview').style.backgroundColor = '#000';
   
   // Hide the sidebar and prayer bar
   document.querySelector('#sidebar').style.display = 'none';
@@ -238,7 +237,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
 
   // Show them again after 10 minutes and remove the background color
   setTimeout(() => {
-    document.querySelector('#wholeview').style.backgroundColor = ''; // Reset the background color
+ // Reset the background color
     document.querySelector('#sidebar').style.display = 'block';
     document.querySelector('#prayerbar').style.display = 'block';
   }, 600000); // 600000 ms = 10 minutes

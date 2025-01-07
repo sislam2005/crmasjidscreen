@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON File Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>JSON File Converter</h1>
+        <p>Upload a JSON file to split it into Start Times and Jamat Times files.</p>
+        
+        <input type="file" id="fileInput" accept=".json">
+        <button id="convertButton" onclick="processFile()">Convert</button>
+
+        <div id="output">
+            <h2>Output Files</h2>
+            <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
+            <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

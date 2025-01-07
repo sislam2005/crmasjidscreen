@@ -3,33 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./styles.css" />
-    <title>Prayer Times JSON Processor</title>
+    <title>CSV to JSON Converter</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h1>Prayer Times Processor</h1>
+    <div class="container">
+        <h1>CSV to JSON Converter</h1>
+        <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
+        
+        <input type="file" id="fileInput" accept=".csv">
+        <label for="jumuah1">Jumuah Khutbah Time:</label>
+        <input type="time" id="jumuah1" required>
+        <label for="jumuah2">Jumuah Salah Time:</label>
+        <input type="time" id="jumuah2" required>
+        <button id="convertButton" onclick="processCSVFile()">Convert</button>
 
-<!-- File Input -->
-<input type="file" id="fileInput" accept=".json" onchange="processFile()">
-<br>
+        <div id="output">
+            <h2>Output Files</h2>
+            <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
+            <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+        </div>
+    </div>
 
-<!-- Jummah Times Input (Hidden until needed) -->
-<div id="jummahInputs" style="display:none;">
-    <label for="jummahKhutbah">Jummah Khutbah Time:</label>
-    <input type="time" id="jummahKhutbah" required>
-    <br>
-    
-    <label for="jummahSalah">Jummah Salah Time:</label>
-    <input type="time" id="jummahSalah" required>
-    <br>
-    
-    <button onclick="submitJummahTimes()">Submit Jummah Times</button>
-</div>
+    <script>
+        let startTimes = [];
+        let jamatTimes = [];
 
-<!-- Download Buttons (Initially hidden) -->
-<button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
-<button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+        function processCSVFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const jumuah1Time = document.getElementById('jumuah1').value;
+            const jumuah2Time = document.getElementById('jumuah2').value;
 
+            if (!file || !jumuah1Time || !jumuah2Time) {
+                alert("Please upload a CSV file and enter Jumuah times.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csvData = e.target.result.split('\n').map(row => row.split(','));
+                const headers = csvData[0];
+
+                startTimes = [];
+                jamatTimes = [];
+
+                csvData.slice(1).forEach(row => {
+                    if (row.length < headers.length) return;
+                    const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
+                    const date = new Date(entry["d_date"]);
+                    const isFriday = date.getDay() === 5;
+
+                    startTimes.push({
+                        "date": entry["d_date"],
+                        "fajr": entry["fajr_begins"],
+                        "sunrise": entry["sunrise"],
+                        "dhuhr": entry["zuhr_begins"],
+                        "asr": entry["asr_mithl_1"],
+                        "maghrib": entry["maghrib_begins"],
+                        "isha": entry["isha_begins"]
+                    });
+
+                    let jamatEntry = {
+                        "date": entry["d_date"],
+                        "fajr": entry["fajr_jamah"],
+                        "dhuhr": entry["zuhr_jamah"],
+                        "asr": entry["asr_jamah"],
+                        "isha": entry["isha_jamah"]
+                    };
+
+                    if (isFriday) {
+                        jamatEntry["jumuah1"] = jumuah1Time;
+                        jamatEntry["jumuah2"] = jumuah2Time;
+                    }
+
+                    jamatTimes.push(jamatEntry);
+                });
+
+                document.getElementById('downloadStartTimes').style.display = 'inline-block';
+                document.getElementById('downloadJamatTimes').style.display = 'inline-block';
+            };
+
+            reader.readAsText(file);
+        }
+
+        function downloadJSON(filename, data) {
+            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        }
+    </script>
 </body>
 </html>

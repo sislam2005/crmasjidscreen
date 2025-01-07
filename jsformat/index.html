@@ -5,10 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV to JSON Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f2ff; /* Light blue background */
+            color: #1a3a5f; /* Dark blue text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #1a3a5f; /* Dark blue heading */
+        }
+
+        p {
+            color: #3a5a7f;
+        }
+
+        input[type="file"],
+        input[type="time"],
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #1a3a5f;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #145080;
+        }
+
+        #output button {
+            background-color: #1a3a5f;
+            color: white;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
+        <img src="https://crmasjid.org/wp-content/uploads/2021/03/logo.png" alt="CR Masjid Logo" class="logo">
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         

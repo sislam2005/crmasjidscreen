@@ -126,35 +126,28 @@
             link.click();
         }
 
-        function downloadZip() {
-            const zip = new JSZip();
-            const currentYear = new Date().getFullYear();
+       function downloadZip() {
+    const zip = new JSZip();
+    const currentYear = new Date().getFullYear();
 
-            // Add merged startTimes.json file with current year as the filename
-            zip.file(`${currentYear}.json`, JSON.stringify(startTimes, null, 4));
+    // Add merged startTimes.json file with current year as the filename
+    zip.file(`${currentYear}.json`, JSON.stringify(startTimes, null, 4));
 
-            // Create 'jamaat' folder and add merged jamatTimes.json inside it
-            const jamaatFolder = zip.folder("jamaat");
-            jamaatFolder.file(`${currentYear}.json`, JSON.stringify(jamatTimes, null, 4));
+    // Create 'jamaat' folder and add merged jamatTimes.json inside it
+    const jamaatFolder = zip.folder("jamaat");
+    jamaatFolder.file(`${currentYear}.json`, JSON.stringify(jamatTimes, null, 4));
 
-            // Add the logo image
-            const logoUrl = "https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp";
-            fetch(logoUrl)
-                .then(response => response.blob())
-                .then(blob => {
-                    zip.file("logo.webp", blob);
+    // After everything is added, generate the ZIP file and download it
+    zip.generateAsync({ type: "blob" })
+        .then(function(content) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = `${currentYear}_times.zip`;
+            link.click();
+        })
+        .catch(err => console.error("Error generating the ZIP file:", err));
+}
 
-                    // Generate and download the zip file
-                    zip.generateAsync({ type: "blob" })
-                        .then(function(content) {
-                            const link = document.createElement('a');
-                            link.href = URL.createObjectURL(content);
-                            link.download = `${currentYear}_times.zip`;
-                            link.click();
-                        });
-                })
-                .catch(err => console.error("Error downloading the logo:", err));
-        }
     </script>
 
 </body>

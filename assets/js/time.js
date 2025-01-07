@@ -211,11 +211,10 @@ async function timeCalc() {
     <span id="hours">${timetogo.hours().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>:<span id="minutes">${timetogo.minutes().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>:<span id="seconds">${timetogo.seconds().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>
   </div>`;
 
-  let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
-  <h1 id="timediv">
+let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
+  <h1 id="timediv" style="display: none;">
     ${event[nextevent].en} Jama'ah
   </h1>`;
-
   let eventspace = `<h2><span id="nextar">${event[nextevent].en} time | وقت ${event[nextevent].ar}</span></h2>
   <span class="prayer">
       <span class="time">${event1time}</span>

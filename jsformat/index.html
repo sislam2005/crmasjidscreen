@@ -4,10 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV to JSON Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
 </head>
 <body>
 
     <div class="container">
+        <!-- Logo displayed at the top -->
+        <img src="https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp" alt="CRM Masjid Logo" id="logo">
+
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         
@@ -22,6 +26,7 @@
             <h2>Output Files</h2>
             <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
             <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+            <button id="downloadZip" style="display:none;" onclick="downloadZip()">Download as ZIP</button>
         </div>
     </div>
 
@@ -51,7 +56,7 @@
                 csvData.slice(1).forEach(row => {
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
-                    
+
                     // Ensure correct date parsing (assuming date format is DD/MM/YYYY)
                     const dateParts = entry["d_date"].split('/');
                     const date = new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`); // MM/DD/YYYY format
@@ -85,6 +90,7 @@
 
                 document.getElementById('downloadStartTimes').style.display = 'inline-block';
                 document.getElementById('downloadJamatTimes').style.display = 'inline-block';
+                document.getElementById('downloadZip').style.display = 'inline-block';
             };
 
             reader.readAsText(file);
@@ -96,6 +102,30 @@
             link.href = URL.createObjectURL(blob);
             link.download = filename;
             link.click();
+        }
+
+        function downloadZip() {
+            const zip = new JSZip();
+            const currentYear = new Date().getFullYear();
+
+            // Add startTimes.json file with current year as the filename
+            zip.file(`${currentYear}.json`, JSON.stringify(startTimes, null, 4));
+
+            // Create 'jamaat' folder and add jamatTimes.json inside it
+            const jamaatFolder = zip.folder("jamaat");
+            jamaatFolder.file(`${currentYear}.json`, JSON.stringify(jamatTimes, null, 4));
+
+
+                    // Generate and download the zip file
+                    zip.generateAsync({ type: "blob" })
+                        .then(function(content) {
+                            const link = document.createElement('a');
+                            link.href = URL.createObjectURL(content);
+                            link.download = `${currentYear}_times.zip`;
+                            link.click();
+                        });
+                })
+                .catch(err => console.error("Error downloading the logo:", err));
         }
     </script>
 

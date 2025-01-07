@@ -88,12 +88,34 @@
                     jamatTimes.push(jamatEntry);
                 });
 
-                document.getElementById('downloadStartTimes').style.display = 'inline-block';
-                document.getElementById('downloadJamatTimes').style.display = 'inline-block';
-                document.getElementById('downloadZip').style.display = 'inline-block';
+                // Fetch and merge existing JSON data
+                mergeExistingData();
             };
 
             reader.readAsText(file);
+        }
+
+        function mergeExistingData() {
+            // URLs of the existing JSON files
+            const startTimesUrl = "https://crmasjidscreen.pages.dev/data/2025.json";
+            const jamatTimesUrl = "https://crmasjidscreen.pages.dev/data/jamaat/2025.json";
+
+            // Fetch existing JSON files
+            Promise.all([
+                fetch(startTimesUrl).then(response => response.json()),
+                fetch(jamatTimesUrl).then(response => response.json())
+            ])
+            .then(([existingStartTimes, existingJamatTimes]) => {
+                // Merge new data with existing data
+                startTimes = existingStartTimes.concat(startTimes);
+                jamatTimes = existingJamatTimes.concat(jamatTimes);
+
+                // Enable download buttons
+                document.getElementById('downloadStartTimes').style.display = 'inline-block';
+                document.getElementById('downloadJamatTimes').style.display = 'inline-block';
+                document.getElementById('downloadZip').style.display = 'inline-block';
+            })
+            .catch(err => console.error("Error merging existing data:", err));
         }
 
         function downloadJSON(filename, data) {
@@ -108,13 +130,19 @@
             const zip = new JSZip();
             const currentYear = new Date().getFullYear();
 
-            // Add startTimes.json file with current year as the filename
+            // Add merged startTimes.json file with current year as the filename
             zip.file(`${currentYear}.json`, JSON.stringify(startTimes, null, 4));
 
-            // Create 'jamaat' folder and add jamatTimes.json inside it
+            // Create 'jamaat' folder and add merged jamatTimes.json inside it
             const jamaatFolder = zip.folder("jamaat");
             jamaatFolder.file(`${currentYear}.json`, JSON.stringify(jamatTimes, null, 4));
 
+            // Add the logo image
+            const logoUrl = "https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp";
+            fetch(logoUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    zip.file("logo.webp", blob);
 
                     // Generate and download the zip file
                     zip.generateAsync({ type: "blob" })

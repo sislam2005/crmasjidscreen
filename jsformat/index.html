@@ -1,4 +1,5 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV to JSON Converter</title>
@@ -47,8 +48,6 @@
                 startTimes = [];
                 jamatTimes = [];
 
-                let processedFridays = new Set();
-
                 csvData.slice(1).forEach(row => {
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
@@ -72,10 +71,10 @@
                         "isha": entry["isha_jamah"]
                     };
 
-                    if (date.getDay() === 5 && !processedFridays.has(entry["d_date"])) { // Adding Jumuah times for every unique Friday
+                    // Check if it's Friday (day 5)
+                    if (date.getDay() === 5) {
                         jamatEntry["jumuah1"] = jumuah1Time;
                         jamatEntry["jumuah2"] = jumuah2Time;
-                        processedFridays.add(entry["d_date"]);
                     }
 
                     jamatTimes.push(jamatEntry);
@@ -97,4 +96,5 @@
         }
     </script>
 
-</body></html>
+</body>
+</html>

@@ -146,9 +146,7 @@
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
                     const date = entry["d_date"];
-                    const isFriday = new Date(date).getDay() === 5;  // Check if the date is a Friday
 
-                    // Add start times if not already present
                     if (!existingStartTimes.some(item => item.date === date)) {
                         existingStartTimes.push({
                             "date": date,
@@ -161,27 +159,13 @@
                         });
                     }
 
-                    // Prepare jamat times
-                    let jamatEntry = {
-                        "date": date,
-                        "fajr": entry["fajr_jamah"],
-                        "dhuhr": entry["zuhr_jamah"],
-                        "asr": entry["asr_jamah"],
-                        "isha": entry["isha_jamah"]
-                    };
-
-                    // If it's a Friday, add Jumuah times
-                    if (isFriday) {
-                        jamatEntry["jumuah1"] = jumuah1Time;
-                        jamatEntry["jumuah2"] = jumuah2Time;
-                    }
-
-                    // Check if entry exists in existing Jamat Times and update or add
-                    const existingIndex = existingJamatTimes.findIndex(item => item.date === date);
-                    if (existingIndex !== -1) {
-                        existingJamatTimes[existingIndex] = jamatEntry;
-                    } else {
-                        existingJamatTimes.push(jamatEntry);
+                    const isFriday = new Date(date).getDay() === 5;
+                    if (isFriday && !existingJamatTimes.some(item => item.date === date)) {
+                        existingJamatTimes.push({
+                            "date": date,
+                            "jumuah1": jumuah1Time,
+                            "jumuah2": jumuah2Time
+                        });
                     }
                 });
 
@@ -194,22 +178,15 @@
         }
 
         async function downloadZip() {
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.display = 'block';
-            const progress = progressBar.querySelector('div');
             const zip = new JSZip();
             zip.file("2025.json", JSON.stringify(startTimes, null, 4));
             const jamatFolder = zip.folder("jamaat");
             jamatFolder.file("2025.json", JSON.stringify(jamatTimes, null, 4));
-
-            zip.generateAsync({ type: "blob" }, metadata => {
-                progress.style.width = metadata.percent.toFixed(2) + "%";
-            }).then(content => {
+            zip.generateAsync({ type: "blob" }).then(content => {
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(content);
                 link.download = "data.zip";
                 link.click();
-                progress.style.width = "100%";
             });
         }
     </script>

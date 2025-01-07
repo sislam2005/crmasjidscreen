@@ -1,110 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV to JSON Converter</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e0f2ff;
-            color: #1a3a5f;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #1a3a5f;
-        }
-
-        p {
-            color: #3a5a7f;
-        }
-
-        input[type="file"],
-        input[type="time"],
-        button {
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        button {
-            background-color: #1a3a5f;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #145080;
-        }
-
-        #output button {
-            background-color: #1a3a5f;
-            color: white;
-        }
-
-        .logo {
-            max-width: 150px;
-            margin-bottom: 20px;
-        }
-
-        #progressBar {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        #progressBar div {
-            height: 20px;
-            border-radius: 10px;
-            background-color: #1a3a5f;
-            text-align: center;
-            line-height: 20px;
-            color: white;
-            width: 0%;
-        }
-    </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://crmasjid.org/wp-content/uploads/2021/03/logo.png" alt="CR Masjid Logo" class="logo">
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         
         <input type="file" id="fileInput" accept=".csv">
         <label for="jumuah1">Jumuah Khutbah Time:</label>
-        <input type="time" id="jumuah1" required>
+        <input type="time" id="jumuah1" required="">
         <label for="jumuah2">Jumuah Salah Time:</label>
-        <input type="time" id="jumuah2" required>
+        <input type="time" id="jumuah2" required="">
         <button id="convertButton" onclick="processCSVFile()">Convert</button>
 
         <div id="output">
             <h2>Output Files</h2>
-            <button id="downloadZip" style="display:none;" onclick="downloadZip()">Download ZIP</button>
-            <div id="progressBar">
-                <div></div>
-            </div>
+            <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
+            <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
         </div>
     </div>
 
@@ -112,18 +28,7 @@
         let startTimes = [];
         let jamatTimes = [];
 
-        async function fetchExistingData(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Failed to fetch');
-                return await response.json();
-            } catch (error) {
-                console.error("Error fetching existing data:", error);
-                return [];
-            }
-        }
-
-        async function processCSVFile() {
+        function processCSVFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             const jumuah1Time = document.getElementById('jumuah1').value;
@@ -139,41 +44,57 @@
                 const csvData = e.target.result.split('\n').map(row => row.split(','));
                 const headers = csvData[0];
 
+                startTimes = [];
+                jamatTimes = [];
+
+                let processedFridays = new Set();
+
                 csvData.slice(1).forEach(row => {
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
-                    const date = entry["d_date"];
+                    const date = new Date(entry["d_date"]);
 
-                    startTimes.push(entry);
+                    startTimes.push({
+                        "date": entry["d_date"],
+                        "fajr": entry["fajr_begins"],
+                        "sunrise": entry["sunrise"],
+                        "dhuhr": entry["zuhr_begins"],
+                        "asr": entry["asr_mithl_1"],
+                        "maghrib": entry["maghrib_begins"],
+                        "isha": entry["isha_begins"]
+                    });
 
-                    const dateObj = new Date(date);
-                    if (dateObj.getDay() === 5) {
-                        jamatTimes.push({
-                            "date": date,
-                            "jumuah1": jumuah1Time,
-                            "jumuah2": jumuah2Time
-                        });
+                    let jamatEntry = {
+                        "date": entry["d_date"],
+                        "fajr": entry["fajr_jamah"],
+                        "dhuhr": entry["zuhr_jamah"],
+                        "asr": entry["asr_jamah"],
+                        "isha": entry["isha_jamah"]
+                    };
+
+                    if (date.getDay() === 5 && !processedFridays.has(entry["d_date"])) { // Adding Jumuah times for every unique Friday
+                        jamatEntry["jumuah1"] = jumuah1Time;
+                        jamatEntry["jumuah2"] = jumuah2Time;
+                        processedFridays.add(entry["d_date"]);
                     }
+
+                    jamatTimes.push(jamatEntry);
                 });
 
-                document.getElementById('downloadZip').style.display = 'inline-block';
+                document.getElementById('downloadStartTimes').style.display = 'inline-block';
+                document.getElementById('downloadJamatTimes').style.display = 'inline-block';
             };
 
             reader.readAsText(file);
         }
 
-        function downloadZip() {
-            const zip = new JSZip();
-            zip.file("startTimes.json", JSON.stringify(startTimes, null, 4));
-            zip.file("jamatTimes.json", JSON.stringify(jamatTimes, null, 4));
-
-            zip.generateAsync({ type: "blob" }).then(function(content) {
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(content);
-                link.download = "data.zip";
-                link.click();
-            });
+        function downloadJSON(filename, data) {
+            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
         }
     </script>
-</body>
-</html>
+
+</body></html>

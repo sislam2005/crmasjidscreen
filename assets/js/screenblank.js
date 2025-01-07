@@ -5,9 +5,9 @@ fetch('https://crmasjidscreen.pages.dev/data/jamaat/2025.json')
           const now = new Date();
           data.forEach(event => {
               const eventTime = new Date(event.date + 'T' + event.time);
-              if (now >= eventTime) {
-                  document.body.style.backgroundColor = 'black';
-                  document.body.innerHTML = '';
+              if (now >= eventTime && now <= new Date(eventTime.getTime() + 10 * 60000)) {
+                  document.body.style.cssText = 'background-color: black !important; visibility: hidden !important;';
+                  document.documentElement.style.cssText = 'background-color: black !important; visibility: hidden !important;';
               }
           });
       }, 1000); // Check every second

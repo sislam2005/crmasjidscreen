@@ -8,8 +8,8 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #e0f2ff; /* Light blue background */
-            color: #1a3a5f; /* Dark blue text */
+            background-color: #e0f2ff;
+            color: #1a3a5f;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,7 +27,7 @@
         }
 
         h1 {
-            color: #1a3a5f; /* Dark blue heading */
+            color: #1a3a5f;
         }
 
         p {
@@ -91,7 +91,18 @@
         let startTimes = [];
         let jamatTimes = [];
 
-        function processCSVFile() {
+        async function fetchExistingData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to fetch');
+                return await response.json();
+            } catch (error) {
+                console.error("Error fetching existing data:", error);
+                return [];
+            }
+        }
+
+        async function processCSVFile() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             const jumuah1Time = document.getElementById('jumuah1').value;
@@ -102,32 +113,34 @@
                 return;
             }
 
+            const existingStartTimes = await fetchExistingData('https://crmasjidscreen.pages.dev/data/2025.json');
+            const existingJamatTimes = await fetchExistingData('https://crmasjidscreen.pages.dev/data/jamaat/2025.json');
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 const csvData = e.target.result.split('\n').map(row => row.split(','));
                 const headers = csvData[0];
 
-                startTimes = [];
-                jamatTimes = [];
-
                 csvData.slice(1).forEach(row => {
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
-                    const date = new Date(entry["d_date"]);
-                    const isFriday = date.getDay() === 5;
+                    const date = entry["d_date"];
+                    const isFriday = new Date(date).getDay() === 5;
 
-                    startTimes.push({
-                        "date": entry["d_date"],
-                        "fajr": entry["fajr_begins"],
-                        "sunrise": entry["sunrise"],
-                        "dhuhr": entry["zuhr_begins"],
-                        "asr": entry["asr_mithl_1"],
-                        "maghrib": entry["maghrib_begins"],
-                        "isha": entry["isha_begins"]
-                    });
+                    if (!existingStartTimes.some(item => item.date === date)) {
+                        existingStartTimes.push({
+                            "date": date,
+                            "fajr": entry["fajr_begins"],
+                            "sunrise": entry["sunrise"],
+                            "dhuhr": entry["zuhr_begins"],
+                            "asr": entry["asr_mithl_1"],
+                            "maghrib": entry["maghrib_begins"],
+                            "isha": entry["isha_begins"]
+                        });
+                    }
 
                     let jamatEntry = {
-                        "date": entry["d_date"],
+                        "date": date,
                         "fajr": entry["fajr_jamah"],
                         "dhuhr": entry["zuhr_jamah"],
                         "asr": entry["asr_jamah"],
@@ -139,8 +152,16 @@
                         jamatEntry["jumuah2"] = jumuah2Time;
                     }
 
-                    jamatTimes.push(jamatEntry);
+                    const existingIndex = existingJamatTimes.findIndex(item => item.date === date);
+                    if (existingIndex !== -1) {
+                        existingJamatTimes[existingIndex] = jamatEntry;
+                    } else {
+                        existingJamatTimes.push(jamatEntry);
+                    }
                 });
+
+                startTimes = existingStartTimes;
+                jamatTimes = existingJamatTimes;
 
                 document.getElementById('downloadStartTimes').style.display = 'inline-block';
                 document.getElementById('downloadJamatTimes').style.display = 'inline-block';

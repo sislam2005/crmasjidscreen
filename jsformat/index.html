@@ -69,7 +69,7 @@
 <body>
 
     <div class="container">
-        <img src="https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp" alt="CR Masjid Logo" class="logo">
+        <img src="https://crmasjid.org/wp-content/uploads/2021/03/logo.png" alt="CR Masjid Logo" class="logo">
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         
@@ -82,8 +82,7 @@
 
         <div id="output">
             <h2>Output Files</h2>
-            <button id="downloadStartTimes" style="display:none;" onclick="downloadJSON('start_times.json', startTimes)">Download Start Times</button>
-            <button id="downloadJamatTimes" style="display:none;" onclick="downloadJSON('jamat_times.json', jamatTimes)">Download Jamat Times</button>
+            <button id="downloadZip" style="display:none;" onclick="downloadZip()">Download ZIP</button>
         </div>
     </div>
 
@@ -163,18 +162,22 @@
                 startTimes = existingStartTimes;
                 jamatTimes = existingJamatTimes;
 
-                document.getElementById('downloadStartTimes').style.display = 'inline-block';
-                document.getElementById('downloadJamatTimes').style.display = 'inline-block';
+                document.getElementById('downloadZip').style.display = 'inline-block';
             };
 
             reader.readAsText(file);
         }
 
-        function downloadJSON(filename, data) {
-            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
+        async function downloadZip() {
+            const zip = new JSZip();
+            zip.file("2025.json", JSON.stringify(startTimes, null, 4));
+            const jamatFolder = zip.folder("jamaat");
+            jamatFolder.file("2025.json", JSON.stringify(jamatTimes, null, 4));
+
+            const content = await zip.generateAsync({ type: "blob" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(content);
+            link.download = "data.zip";
             link.click();
         }
     </script>

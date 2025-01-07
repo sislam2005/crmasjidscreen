@@ -230,7 +230,7 @@ let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
   // Check if we are within the 10-minute window after the Iqamah time
   if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
     // Line to add the code for hiding sidebar and prayerbar
-	document.querySelector('#wholeview').style.display = 'none';
+	document.querySelector('#wholeview').style.background-color = '#000';
     document.querySelector('#sidebar').style.display = 'none';
     document.querySelector('#prayerbar').style.display = 'none';
 

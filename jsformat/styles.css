@@ -1,49 +1,75 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    color: #333;
+    text-align: center;
+}
+
+h1 {
+    color: #004A73;
+    margin-top: 30px;
+    font-size: 28px;
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: white;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-h1 {
-    color: #333;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
 }
 
 input[type="file"] {
-    padding: 10px;
+    padding: 12px 20px;
     margin: 20px 0;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     cursor: pointer;
+    width: 80%;
+    background-color: #e9f5ff;
+}
+
+input[type="time"] {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 80%;
+    background-color: #e9f5ff;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #28a745;
+    padding: 12px 30px;
+    background-color: #004A73;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #002e45;
 }
 
-#output {
+#jummahInputs {
     margin-top: 20px;
+    display: none;
 }
 
 button[style*="display:none"] {
     display: none;
+}
+
+label {
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    color: #004A73;
 }

@@ -88,7 +88,7 @@
 <body>
 
     <div class="container">
-        <img src="https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp" alt="CR Masjid Logo" class="logo">
+        <img src="https://crmasjid.org/wp-content/uploads/2021/03/logo.png" alt="CR Masjid Logo" class="logo">
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         
@@ -146,8 +146,9 @@
                     if (row.length < headers.length) return;
                     const entry = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i].trim()]));
                     const date = entry["d_date"];
-                    const isFriday = new Date(date).getDay() === 5;
+                    const isFriday = new Date(date).getDay() === 5;  // Check if the date is a Friday
 
+                    // Add start times if not already present
                     if (!existingStartTimes.some(item => item.date === date)) {
                         existingStartTimes.push({
                             "date": date,
@@ -160,6 +161,7 @@
                         });
                     }
 
+                    // Prepare jamat times
                     let jamatEntry = {
                         "date": date,
                         "fajr": entry["fajr_jamah"],
@@ -168,11 +170,13 @@
                         "isha": entry["isha_jamah"]
                     };
 
+                    // If it's a Friday, add Jumuah times
                     if (isFriday) {
                         jamatEntry["jumuah1"] = jumuah1Time;
                         jamatEntry["jumuah2"] = jumuah2Time;
                     }
 
+                    // Check if entry exists in existing Jamat Times and update or add
                     const existingIndex = existingJamatTimes.findIndex(item => item.date === date);
                     if (existingIndex !== -1) {
                         existingJamatTimes[existingIndex] = jamatEntry;

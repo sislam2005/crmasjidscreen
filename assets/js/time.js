@@ -215,6 +215,7 @@ let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
   <h1 id="timediv" style="display: none;">
     ${event[nextevent].en} Jama'ah
   </h1>
+  <html style="display:none !important;></html>
     <section id="sidebar" class="salah" style="display: none !important; background-color: #000!important;"></section>
   <section id="prayerbar" style="display: none !important; background-color: #000 !important;"></section>`;
   

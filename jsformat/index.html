@@ -159,8 +159,9 @@
                         });
                     }
 
-                    const isFriday = new Date(date).getDay() === 5;
-                    if (isFriday && !existingJamatTimes.some(item => item.date === date)) {
+                    const dateObj = new Date(date);
+                    const isFriday = dateObj.getDay() === 5;
+                    if (isFriday) {
                         existingJamatTimes.push({
                             "date": date,
                             "jumuah1": jumuah1Time,
@@ -175,19 +176,6 @@
             };
 
             reader.readAsText(file);
-        }
-
-        async function downloadZip() {
-            const zip = new JSZip();
-            zip.file("2025.json", JSON.stringify(startTimes, null, 4));
-            const jamatFolder = zip.folder("jamaat");
-            jamatFolder.file("2025.json", JSON.stringify(jamatTimes, null, 4));
-            zip.generateAsync({ type: "blob" }).then(content => {
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(content);
-                link.download = "data.zip";
-                link.click();
-            });
         }
     </script>
 </body>

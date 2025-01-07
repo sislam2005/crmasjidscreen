@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV to JSON Converter</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -64,12 +65,30 @@
             max-width: 150px;
             margin-bottom: 20px;
         }
+
+        #progressBar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #progressBar div {
+            height: 20px;
+            border-radius: 10px;
+            background-color: #1a3a5f;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            width: 0%;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://crmasjid.org/wp-content/uploads/2021/03/logo.png" alt="CR Masjid Logo" class="logo">
+        <img src="https://crmasjid.org/wp-content/uploads/2024/02/Group-52-1.webp" alt="CR Masjid Logo" class="logo">
         <h1>CSV to JSON Converter</h1>
         <p>Upload a CSV file to split it into Start Times and Jamat Times JSON files.</p>
         
@@ -83,6 +102,9 @@
         <div id="output">
             <h2>Output Files</h2>
             <button id="downloadZip" style="display:none;" onclick="downloadZip()">Download ZIP</button>
+            <div id="progressBar">
+                <div></div>
+            </div>
         </div>
     </div>
 
@@ -161,7 +183,6 @@
 
                 startTimes = existingStartTimes;
                 jamatTimes = existingJamatTimes;
-
                 document.getElementById('downloadZip').style.display = 'inline-block';
             };
 
@@ -169,16 +190,23 @@
         }
 
         async function downloadZip() {
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.display = 'block';
+            const progress = progressBar.querySelector('div');
             const zip = new JSZip();
             zip.file("2025.json", JSON.stringify(startTimes, null, 4));
             const jamatFolder = zip.folder("jamaat");
             jamatFolder.file("2025.json", JSON.stringify(jamatTimes, null, 4));
 
-            const content = await zip.generateAsync({ type: "blob" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(content);
-            link.download = "data.zip";
-            link.click();
+            zip.generateAsync({ type: "blob" }, metadata => {
+                progress.style.width = metadata.percent.toFixed(2) + "%";
+            }).then(content => {
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(content);
+                link.download = "data.zip";
+                link.click();
+                progress.style.width = "100%";
+            });
         }
     </script>
 </body>

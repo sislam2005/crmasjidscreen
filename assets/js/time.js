@@ -3,8 +3,8 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 let style = params.style; // get value of "style" param
 document.body.classList.add(style);
-//let now = moment().locale('en-gb');
-let now = moment('2025-01-07 07:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
+let now = moment().locale('en-gb');
+//let now = moment('2025-01-07 07:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
 
 let starttimes, jamaat, today;
 
@@ -29,8 +29,8 @@ async function fetchJamaat(year) {
 }
 
 async function timeCalc() {
- // now = moment().locale('en-gb');
-  now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
+  now = moment().locale('en-gb');
+ // now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
   nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
   nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 
@@ -166,10 +166,10 @@ async function timeCalc() {
     // Fajr start
     if (now < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 1, nexttime = fajriqamahmoment; } else // Fajr starts, before Iqamah
       if (nowminus < fajriqamahmoment) { fajr = ' active', nextevent = 0, iqamah = 0, salah = 1, nexttime = sunrisemoment; } else // Fajr Iqamah starts and shows for 10 minutes
-        if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Fajr Salah & before Sunrise
+        if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = sunrisemoment; } else // after Fajr Salah & before Sunrise
 
           // Sunrise start
-       // if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
+			if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
             // Dhuhr start
             if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Khutbah", event2name = "Salah"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
             if (now < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 1, nexttime = dhuhriqamahmoment; } else // Dhuhr starts, before Iqamah
@@ -195,8 +195,8 @@ async function timeCalc() {
                             if (now < nextfajrmoment) { maghrib = ''; isha = ' active'; nextevent = 6, iqamah = 0, salah = 0, nexttime = nextfajrmoment; } else { console.log('no match'); }
 
   // an override for showing Sunrise as the next countdown on the sidebar, while the event times are of Dhuhr
-  let nextmoment = nextevent;
-  if (nexttime === sunrisemoment) {nextmoment = 1}
+  //let nextmoment = nextevent;
+  //if (nexttime === sunrisemoment) {nextmoment = 1}
   
   // work out time remaining and upcoming event times for the sidebar
   let timetogo = moment.duration(nexttime.diff(now));

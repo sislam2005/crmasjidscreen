@@ -195,8 +195,8 @@ async function timeCalc() {
                             if (now < nextfajrmoment) { maghrib = ''; isha = ' active'; nextevent = 6, iqamah = 0, salah = 0, nexttime = nextfajrmoment; } else { console.log('no match'); }
 
   // an override for showing Sunrise as the next countdown on the sidebar, while the event times are of Dhuhr
-  //let nextmoment = nextevent;
-  //if (nexttime === sunrisemoment) {nextmoment = 1}
+  let nextmoment = nextevent;
+  if (nexttime === sunrisemoment) {nextmoment = 1}
   
   // work out time remaining and upcoming event times for the sidebar
   let timetogo = moment.duration(nexttime.diff(now));

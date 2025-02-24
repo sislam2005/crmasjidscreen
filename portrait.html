@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Times</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="wholeview" class="portrait">
+        <header>
+            <h1>Prayer Times</h1>
+            <p id="date"></p>
+        </header>
+        
+        <section id="clock">
+            <h2>Current Time</h2>
+            <p id="current-time"></p>
+        </section>
+        
+        <section id="next-prayer">
+            <h2>Next Prayer</h2>
+            <p id="next-prayer-name"></p>
+            <p id="time-remaining"></p>
+        </section>
+        
+        <section id="prayer-times">
+            <h2>Today's Prayer Times</h2>
+            <ul>
+                <li>Fajr: <span id="fajr-time"></span> | Iqamah: <span id="fajr-iqamah"></span></li>
+                <li>Sunrise: <span id="sunrise-time"></span></li>
+                <li>Dhuhr: <span id="dhuhr-time"></span> | Iqamah: <span id="dhuhr-iqamah"></span></li>
+                <li>Asr: <span id="asr-time"></span> | Iqamah: <span id="asr-iqamah"></span></li>
+                <li>Maghrib: <span id="maghrib-time"></span> | Iqamah: <span id="maghrib-iqamah"></span></li>
+                <li>Isha: <span id="isha-time"></span> | Iqamah: <span id="isha-iqamah"></span></li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

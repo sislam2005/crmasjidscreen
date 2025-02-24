@@ -4,7 +4,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 let style = params.style; // get value of "style" param
 document.body.classList.add(style);
 //let now = moment().locale('en-gb');
-let now = moment('2025-01-07 07:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
+let now = moment('2025-01-10 06:55:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
 
 let starttimes, jamaat, today;
 
@@ -29,8 +29,8 @@ async function fetchJamaat(year) {
 }
 
 async function timeCalc() {
-  now = moment().locale('en-gb');
- // now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
+//   now = moment().locale('en-gb');
+  now = now.locale('en-gb').add(1, 'second'); // TESTING ONLY
   nowminus = moment(now).subtract(10, "minutes").locale('en-gb'); // 10 minutes before now is used to show active Jama'ah time for 10 minutes from the start of Iqamah
   nowminus20 = moment(now).subtract(20, "minutes").locale('en-gb'); // 20 minutes version
 
@@ -169,7 +169,7 @@ async function timeCalc() {
         if (now < sunrisemoment) { fajr = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = sunrisemoment; } else // after Fajr Salah & before Sunrise
 
           // Sunrise start
-			if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
+       // if (now < dhuhrmoment) { sunrise = ' active', nextevent = 2, iqamah = 0, salah = 0, nexttime = dhuhrmoment; } else // after Sunrise & before Dhuhr
             // Dhuhr start
             if (now < jumuah1iqamahmoment) { dhuhr = ' active'; nextevent = 7, iqamah = 1, nexttime = jumuah1iqamahmoment, event1name = "Khutbah", event2name = "Salah"; } else // Dhuhr starts, before Jumu'ah 1 Iqamah
             if (now < dhuhriqamahmoment) { dhuhr = ' active'; nextevent = 2, iqamah = 1, nexttime = dhuhriqamahmoment; } else // Dhuhr starts, before Iqamah
@@ -230,6 +230,7 @@ let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
 // Check if we are within the 10-minute window after the Iqamah time
 if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
   // Set the background color of the whole view to black
+  document.querySelector('#wholeview').style.backgroundColor = '#000';
   
   // Hide the sidebar and prayer bar
   document.querySelector('#sidebar').style.display = 'none';
@@ -237,7 +238,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
 
   // Show them again after 10 minutes and remove the background color
   setTimeout(() => {
- // Reset the background color
+    document.querySelector('#wholeview').style.backgroundColor = ''; // Reset the background color
     document.querySelector('#sidebar').style.display = 'block';
     document.querySelector('#prayerbar').style.display = 'block';
   }, 600000); // 600000 ms = 10 minutes

@@ -136,7 +136,7 @@ span.prayer.active {
 }
 
 span.prayer span {
-    display: block;
+    display: inline-block;
     font-size: 2vw;
 }
 

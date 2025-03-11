@@ -248,7 +248,6 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
 
   let prayerbar = `<span class='prayer${fajr}'>
       <span class='event'>${event[0].en} | ${event[0].ar}</span>
-      <span class='start'>${timestoday.fajr.trim()}</span>
       <span class='iqamah'>${jamaattoday.fajr.trim()}</span>
     </span>
     </span><span class='prayer${dhuhr}'>
@@ -264,7 +263,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
       <span class='event'>${event[5].en} | ${event[5].ar}</span>
       <span class='iqamah'>${jamaattoday.isha.trim()}</span>
     </span><span class='prayer'>
-      <span class='event'>${event1name}</span>
+      <span class='event'>Jummah</span>
       <span class='iqamah'>${event1time}</span>
     </span>`;
   document.getElementById('sidebar').innerHTML = sidebar;

@@ -247,44 +247,26 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
   if (salah === 1) { sidebar = clockspace + salahspace; }
 
   let prayerbar = `<span class='prayer${fajr}'>
-      <span class='start'>${timestoday.fajr.trim()}</span>
       <span class='event'>${event[0].en} | ${event[0].ar}</span>
+      <span class='start'>${timestoday.fajr.trim()}</span>
       <span class='iqamah'>${jamaattoday.fajr.trim()}</span>
-    </span><span class='prayer${sunrise}'>
-      <span class='start'>${timestoday.sunrise.trim()}</span>
-      <span class='event'>${event[1].en} | ${event[1].ar}</span>
-      <span class='iqamah'><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="256" height="128" viewBox="0 0 256 128" preserveAspectRatio="xMidYMid meet" fill="#000" stroke="none">
-        <g transform="translate(0,208) scale(0.1,-0.1)">
-          <path d="M1244 2026 c-17 -13 -19 -31 -24 -202 l-5 -188 -70 -12 c-94 -15
-          -195 -56 -285 -116 l-74 -49 -126 125 c-69 68 -135 127 -147 131 -32 9 -77
-          -36 -68 -68 4 -12 63 -78 131 -147 l125 -126 -50 -75 c-59 -88 -98 -186 -115
-          -284 l-12 -70 -188 -5 c-171 -5 -189 -7 -202 -24 -25 -34 -17 -64 23 -85 31
-          -16 2215 -16 2246 0 40 21 48 51 23 85 -13 17 -31 19 -202 24 l-188 5 -12 70
-          c-15 94 -56 195 -116 285 l-49 74 120 121 c139 140 149 156 126 191 -15 23
-          -31 29 -65 24 -8 -1 -72 -58 -141 -127 l-126 -125 -49 35 c-97 69 -221 120
-          -332 136 l-47 6 -5 188 c-5 172 -7 190 -24 203 -11 8 -27 14 -36 14 -9 0 -25
-          -6 -36 -14z m190 -526 c247 -63 439 -271 481 -522 l6 -38 -641 0 -641 0 6 38
-          c42 249 233 458 477 522 97 25 214 25 312 0z"/>
-        </g>
-      </svg></span>
+    </span>
     </span><span class='prayer${dhuhr}'>
-      <span class='start'>${timestoday.dhuhr.trim()}</span>
       <span class='event'>${event[2].en} | ${event[2].ar}</span>
       <span class='iqamah'>${jumuahdhuhr}</span>
     </span><span class='prayer${asr}'>
-      <span class='start'>${timestoday.asr.trim()}</span>
       <span class='event'>${event[3].en} | ${event[3].ar}</span>
       <span class='iqamah'>${jamaattoday.asr.trim()}</span>
     </span><span class='prayer${maghrib}'>
-      <span class='start'>${timestoday.maghrib.trim()}</span>
       <span class='event'>${event[4].en} | ${event[4].ar}</span>
       <span class='iqamah'>${maghribiqamahmoment.hours().toLocaleString('en-gb',{minimumIntegerDigits:2})}:${maghribiqamahmoment.minutes().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>
     </span><span class='prayer${isha}'>
-      <span class='start'>${timestoday.isha.trim()}</span>
       <span class='event'>${event[5].en} | ${event[5].ar}</span>
       <span class='iqamah'>${jamaattoday.isha.trim()}</span>
+    </span><span class='prayer'>
+      <span class='event'>${event1name}</span>
+      <span class='iqamah'>${event1time}</span>
     </span>`;
-  
   document.getElementById('sidebar').innerHTML = sidebar;
   document.getElementById('prayerbar').innerHTML = prayerbar;
   

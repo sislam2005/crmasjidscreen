@@ -123,7 +123,14 @@ span.prayer {
     height: calc(100vw / 6);
     text-align: center;
 }
-
+span.headertime {
+    background-color: rgb(0, 150, 183);
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    height: calc(100vw / 6);
+    text-align: center;
+}
 body.prayerbar span.prayer {
     padding-top: 17vh;
 }
@@ -132,7 +139,6 @@ span.prayer.active {
     background-color: rgb(0, 150, 183);
     color: #fff;
     height: 18vh;
-    margin-top: 3%;
 }
 
 span.prayer span {

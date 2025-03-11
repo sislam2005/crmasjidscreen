@@ -246,7 +246,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
   let sidebar = clockspace + nextspace + eventspace;
   if (salah === 1) { sidebar = clockspace + salahspace; }
 
-  let prayerbar = `<span class='prayer'><span id="date">${now.format('dddd LL')}</span>
+  let prayerbar = `<span class='headertime'><span id="date">${now.format('dddd LL')}</span><br>
 		<span id="now">${now.format('LTS')}</span>
 		</span>
 	   <span class='prayer${fajr}'>

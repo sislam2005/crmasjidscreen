@@ -131,7 +131,8 @@ body.prayerbar span.prayer {
 span.prayer.active {
     background-color: rgb(0, 150, 183);
     color: #fff;
-    height: 15vh;
+    height: 18vh;
+    margin-top: 3%;
 }
 
 span.prayer span {
@@ -140,8 +141,8 @@ span.prayer span {
 }
 
 span.prayer span.event {
-    font-size: 2vw;
-    line-height: 10vh;
+    font-size: 10vw;
+    line-height: 13.3vh;
     font-weight: 100;
 }
 

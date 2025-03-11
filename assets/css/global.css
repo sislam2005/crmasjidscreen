@@ -121,7 +121,7 @@ span.prayer {
     display: inline-block;
     width: 100%;
     height: 15vh;
-    text-align: center;
+    text-align: left;
 }
 span.headertime {
 padding-top:9px;
@@ -160,7 +160,7 @@ body.prayerbar span.prayer span.event {
 }
 
 span.prayer span.iqamah {
-    font-size: 4vw;
+    font-size: 11vw;
 }
 
 span.prayer svg {

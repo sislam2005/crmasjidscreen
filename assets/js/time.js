@@ -263,7 +263,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
       <span class='event'>${event[5].en} | ${event[5].ar}</span>
       <span class='iqamah'>${jamaattoday.isha.trim()}</span>
     </span><span class='prayer'>
-      <span class='event'>Jummah</span>
+      <span class='event'>Jumu'ah | الجمعة</span>
       <span class='iqamah'>${event1time}</span>
     </span>`;
   document.getElementById('sidebar').innerHTML = sidebar;

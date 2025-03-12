@@ -1,3 +1,18 @@
+function getTimeFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const time = urlParams.get('time'); // Get the value of 'time' from the URL
+
+    if (time) {
+        console.log("Time from URL:", time);
+        return time; // Store or use this value
+    } else {
+        console.log("No time parameter found in the URL.");
+        return null;
+    }
+}
+
+const Jummahtimecrm = getTimeFromURL(); // This will contain the extracted time
+
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 });
@@ -266,7 +281,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
       <span class='iqamah'>${jamaattoday.isha.trim()}</span>
     </span><span class='prayer'>
       <span class='event'>Jumu'ah | الجمعة</span>
-      <span class='iqamah'>${event1time}</span>
+      <span class='iqamah'>${Jummahtimecrm}</span>
     </span>`;
   document.getElementById('sidebar').innerHTML = sidebar;
   document.getElementById('prayerbar').innerHTML = prayerbar;

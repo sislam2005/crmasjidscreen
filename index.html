@@ -27,11 +27,11 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: zoomOut 2s ease-out forwards;
-            animation-delay: 3s; /* Adjust this to change preloader duration */
+            animation: zoomOut 1s ease-out forwards;
+            animation-delay: 1.5s; /* Adjust this to change preloader duration */
         }
         .preloader img {
-            width: 200px;
+            width: 30%;
             height: auto;
             animation: zoomIn 1.5s ease-in-out;
         }
@@ -64,7 +64,7 @@
 <script>
         setTimeout(() => {
             document.querySelector('.preloader').style.display = 'none';
-        }, 5000); // Adjust this to match animation-delay + animation duration
+        }, 2000); // Adjust this to match animation-delay + animation duration
     </script>
 </body>
 </html>

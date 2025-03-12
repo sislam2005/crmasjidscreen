@@ -136,6 +136,7 @@ padding-top:9px;
     text-align: center;
     font-size: 3vh;
     line-height: 5vh;
+    font-weight: 900;
 }
 body.prayerbar span.prayer {
     padding-top: 17vh;
@@ -171,6 +172,7 @@ body.prayerbar span.prayer span.event {
 span.prayer span.iqamah {
     font-size: 11vw;
     margin-right: 20px;
+    font-weight: bold;
 }
 
 .event {

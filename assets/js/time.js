@@ -279,7 +279,7 @@ if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
     </span><span class='prayer${isha}'>
       <span class='event'>${event[5].en} | ${event[5].ar}</span>
       <span class='iqamah'>${jamaattoday.isha.trim()}</span>
-    </span><span class='prayer'>
+    </span><span class='prayer active'>
       <span class='event'>Jumu'ah | الجمعة</span>
       <span class='iqamah'>${Jummahtimecrm}</span>
     </span>`;

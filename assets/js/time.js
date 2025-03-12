@@ -211,12 +211,29 @@ async function timeCalc() {
 
   let currentEvent = event[nextevent];
   
-  let displayContent = `
-    <div>
-        <p>${currentEvent.en}: ${currentEvent.athan}</p>
-        ${currentEvent.iqamah ? '<p>Iqamah: ' + currentEvent.iqamah + '</p>' : ''}
-    </div>
-`;
+  let displayContent = `<span class='headertime'><span id="date">${now.format('dddd LL')}</span><br>
+		<span id="now">${now.format('LTS')}</span>
+		</span>
+	   <span class='prayer${fajr}'>
+      <span class='event'>${event[0].en} | ${event[0].ar}</span>
+      <span class='iqamah'>${jamaattoday.fajr.trim()}</span>
+    </span>
+    </span><span class='prayer${dhuhr}'>
+      <span class='event'>${event[2].en} | ${event[2].ar}</span>
+      <span class='iqamah'>${jumuahdhuhr}</span>
+    </span><span class='prayer${asr}'>
+      <span class='event'>${event[3].en} | ${event[3].ar}</span>
+      <span class='iqamah'>${jamaattoday.asr.trim()}</span>
+    </span><span class='prayer${maghrib}'>
+      <span class='event'>${event[4].en} | ${event[4].ar}</span>
+      <span class='iqamah'>${maghribiqamahmoment.hours().toLocaleString('en-gb',{minimumIntegerDigits:2})}:${maghribiqamahmoment.minutes().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>
+    </span><span class='prayer${isha}'>
+      <span class='event'>${event[5].en} | ${event[5].ar}</span>
+      <span class='iqamah'>${jamaattoday.isha.trim()}</span>
+    </span><span class='prayer jummah'>
+      <span class='event'>Jumu'ah | الجمعة</span>
+      <span class='iqamah'>${Jummahtimecrm}</span>
+    </span>`;
 
   prayerBar.innerHTML = displayContent;
 }

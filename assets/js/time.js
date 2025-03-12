@@ -22,6 +22,7 @@ let now = moment().locale('en-gb');
 // let now = moment('2023-01-01 00:00:01', 'YYYY-MM-DD HH:mm:ss').locale('en-gb'); // TESTING ONLY
 
 let starttimes, jamaat, today;
+const prayerBar = document.getElementById('prayerbar');
 
 async function fetchStart(year) {
   let url = `././data/${year}.json`;
@@ -206,109 +207,18 @@ async function timeCalc() {
                         // Isha start
                         if (now < ishaiqamahmoment) { isha = ' active'; nextevent = 5, iqamah = 1, nexttime = ishaiqamahmoment; } else // Isha starts, before Iqamah
                           if (nowminus20 < ishaiqamahmoment) { isha = ' active'; nextevent = 5, iqamah = 0, salah = 1, nexttime = nextfajrmoment; } else // Isha starts and shows for 10 minutes
-                            if (now < nextfajrmoment) { maghrib = ''; isha = ' active'; nextevent = 6, iqamah = 0, salah = 0, nexttime = nextfajrmoment; } else { console.log('no match'); }
+                            if (now < nextfajrmoment) { maghrib = ''; isha = ' active'; nextevent = 6, iqamah = 0, salah = 0, nexttime = nextfajrmoment; }
 
-  // an override for showing Sunrise as the next countdown on the sidebar, while the event times are of Dhuhr
-  let nextmoment = nextevent;
-  if (nexttime === sunrisemoment) {nextmoment = 1}
+  let currentEvent = event[nextevent];
   
-  // work out time remaining and upcoming event times for the sidebar
-  let timetogo = moment.duration(nexttime.diff(now));
-  event1time = event[nextevent].athan, event2time = event[nextevent].iqamah;
+  let displayContent = `
+    <div>
+        <p>${currentEvent.en}: ${currentEvent.athan}</p>
+        ${currentEvent.iqamah ? '<p>Iqamah: ' + currentEvent.iqamah + '</p>' : ''}
+    </div>
+`;
 
-  let clockspace = `<span id="hijri">${now.format('iD iMMMM iYYYY')}</span><br />
-  <span id="date">${now.format('dddd LL')}</span>
-  <div id="clockdiv"><span id="now">${now.format('LTS')}</span></div>`;
-
-  let nextspace = `<h2>Time to <span id="next">${event[nextmoment].en}</span></h2>
-  <div id="timediv">
-    <span id="hours">${timetogo.hours().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>:<span id="minutes">${timetogo.minutes().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>:<span id="seconds">${timetogo.seconds().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>
-  </div>`;
-
-let salahspace = `<h2>صلاة ${event[nextevent].ar} جماعة</h2>
-  <h1 id="timediv" style="display: none;">
-    ${event[nextevent].en} Jama'ah
-  </h1>
-  <html style="display:none !important;></html>
-    <section id="sidebar" class="salah" style="display: none !important; background-color: #000!important;"></section>
-  <section id="prayerbar" style="display: none !important; background-color: #000 !important;"></section>`;
-  
-  let eventspace = `<h2><span id="nextar">${event[nextevent].en} time | وقت ${event[nextevent].ar}</span></h2>
-  <span class="prayer">
-      <span class="time">${event1time}</span>
-      <span class="event">${event1name}</span>
-  </span><span class="prayer">
-      <span class="time">${event2time}</span>
-      <span class="event">${event2name}</span>
-  </span>`;
-// Check if we are within the 10-minute window after the Iqamah time
-if (now >= fajriqamahmoment && now <= fajriqamahmoment.add(10, 'minutes')) {
-  // Set the background color of the whole view to black
-  document.querySelector('#wholeview').style.backgroundColor = '#000';
-  
-  // Hide the sidebar and prayer bar
-  document.querySelector('#sidebar').style.display = 'none';
-  document.querySelector('#prayerbar').style.display = 'none';
-
-  // Show them again after 10 minutes and remove the background color
-  setTimeout(() => {
-    document.querySelector('#wholeview').style.backgroundColor = ''; // Reset the background color
-    document.querySelector('#sidebar').style.display = 'block';
-    document.querySelector('#prayerbar').style.display = 'block';
-  }, 600000); // 600000 ms = 10 minutes
+  prayerBar.innerHTML = displayContent;
 }
-  let sidebar = clockspace + nextspace + eventspace;
-  if (salah === 1) { sidebar = clockspace + salahspace; }
-
-  let prayerbar = `<span class='headertime'><span id="date">${now.format('dddd LL')}</span><br>
-		<span id="now">${now.format('LTS')}</span>
-		</span>
-	   <span class='prayer${fajr}'>
-      <span class='event'>${event[0].en} | ${event[0].ar}</span>
-      <span class='iqamah'>${jamaattoday.fajr.trim()}</span>
-    </span>
-    </span><span class='prayer${dhuhr}'>
-      <span class='event'>${event[2].en} | ${event[2].ar}</span>
-      <span class='iqamah'>${jumuahdhuhr}</span>
-    </span><span class='prayer${asr}'>
-      <span class='event'>${event[3].en} | ${event[3].ar}</span>
-      <span class='iqamah'>${jamaattoday.asr.trim()}</span>
-    </span><span class='prayer${maghrib}'>
-      <span class='event'>${event[4].en} | ${event[4].ar}</span>
-      <span class='iqamah'>${maghribiqamahmoment.hours().toLocaleString('en-gb',{minimumIntegerDigits:2})}:${maghribiqamahmoment.minutes().toLocaleString('en-gb',{minimumIntegerDigits:2})}</span>
-    </span><span class='prayer${isha}'>
-      <span class='event'>${event[5].en} | ${event[5].ar}</span>
-      <span class='iqamah'>${jamaattoday.isha.trim()}</span>
-    </span><span class='prayer jummah'>
-      <span class='event'>Jumu'ah | الجمعة</span>
-      <span class='iqamah'>${Jummahtimecrm}</span>
-    </span>`;
-  document.getElementById('sidebar').innerHTML = sidebar;
-  document.getElementById('prayerbar').innerHTML = prayerbar;
-  
-  if (iqamah===1) {
-    document.getElementById('next').innerHTML = event[nextevent].en + ' Iqamah';
-    if ( !document.getElementById("sidebar").classList.contains("iqamah") ) {
-      document.getElementById("sidebar").classList.add("iqamah");
-    };
-  } else {
-    if ( document.getElementById("sidebar").classList.contains("iqamah") ) {
-      document.getElementById("sidebar").classList.remove("iqamah");
-    };
-  }
-  if (salah===1) {
-    if ( !document.getElementById("sidebar").classList.contains("salah") ) {
-      document.getElementById("sidebar").classList.add("salah");
-    };
-  } else {
-    if ( document.getElementById("sidebar").classList.contains("salah") ) {
-      document.getElementById("sidebar").classList.remove("salah");
-    };
-  }
-}
-
-timeCalc(); // run immediately on page load, and then every 1 second
-
-window.onload = function () {
-  setInterval(timeCalc, 1000); // timer every second
-};
+setInterval(timeCalc, 1000);
+timeCalc();

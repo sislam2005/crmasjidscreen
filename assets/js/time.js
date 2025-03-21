@@ -211,6 +211,12 @@ async function timeCalc() {
 
   let currentEvent = event[nextevent];
   
+// Determine if today is Friday
+let isFriday = now.format('dddd') === 'Friday';
+
+// Set jummahdhuhr based on the day
+let jummahdhuhr = isFriday ? Jummahtimecrm : jamaattoday.dhuhr.trim();
+  
   let displayContent = `<span class='headertime'><span id="date">${now.format('dddd LL')}</span><br>
 		<span id="now">${now.format('LTS')}</span>
 		</span>

@@ -165,7 +165,7 @@ async function timeCalc() {
   if (day === 4) {
     jumuah1iqamahmoment = moment(today + jamaattoday.jumuah1, 'YYYY-MM-DD HH:mm');
     jumuah2iqamahmoment = moment(today + jamaattoday.jumuah2, 'YYYY-MM-DD HH:mm');
-    jumuahdhuhr = jamaattoday.jumuah1;
+    jumuahdhuhr = Jummahtimecrm;
     dhuhriqamahmoment = jumuah1iqamahmoment;
     event[2].iqamah = jumuahdhuhr;
   } else {

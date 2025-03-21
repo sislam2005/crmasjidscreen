@@ -226,7 +226,7 @@ let newdhuhr = isFriday ? Jummahtimecrm : jamaattoday.dhuhr.trim();
     </span>
     </span><span class='prayer${dhuhr}'>
       <span class='event'>${event[2].en} | ${event[2].ar}</span>
-      <span class='iqamah'>${jumuahdhuhr}</span>
+      <span class='iqamah'>${newdhuhr}</span>
     </span><span class='prayer${asr}'>
       <span class='event'>${event[3].en} | ${event[3].ar}</span>
       <span class='iqamah'>${jamaattoday.asr.trim()}</span>

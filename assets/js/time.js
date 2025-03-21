@@ -211,12 +211,6 @@ async function timeCalc() {
 
   let currentEvent = event[nextevent];
   
-// Determine if today is Friday
-let isFriday = now.format('dddd') === 'Friday';
-
-// Set jummahdhuhr based on the day
-let newdhuhr = isFriday ? Jummahtimecrm : jamaattoday.dhuhr.trim();
-  
   let displayContent = `<span class='headertime'><span id="date">${now.format('dddd LL')}</span><br>
 		<span id="now">${now.format('LTS')}</span>
 		</span>
@@ -226,7 +220,7 @@ let newdhuhr = isFriday ? Jummahtimecrm : jamaattoday.dhuhr.trim();
     </span>
     </span><span class='prayer${dhuhr}'>
       <span class='event'>${event[2].en} | ${event[2].ar}</span>
-      <span class='iqamah'>${newdhuhr}</span>
+      <span class='iqamah'>${jumuahdhuhr}</span>
     </span><span class='prayer${asr}'>
       <span class='event'>${event[3].en} | ${event[3].ar}</span>
       <span class='iqamah'>${jamaattoday.asr.trim()}</span>

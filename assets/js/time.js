@@ -239,3 +239,84 @@ async function timeCalc() {
 }
 setInterval(timeCalc, 1000);
 timeCalc();
+// Existing prayer time script remains unchanged
+
+// New feature: Countdown to the last third of the night
+(function() {
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+    
+    if (getQueryParam('ramadan') !== '1') return;
+
+    function calculateLastThirdCountdown(maghrib, fajr) {
+        const maghribTime = new Date(today.maghrib.trim());
+        const fajrTime = new Date(nextfajr.trim());
+        
+        const nightDuration = (fajrTime - maghribTime) / 1000; // Total night duration in seconds
+        const lastThirdStart = fajrTime - (nightDuration / 3) * 1000;
+        const now = new Date();
+
+        if (now >= lastThirdStart) {
+            return 'The last third of the night has started!';
+        }
+        
+        const timeLeft = lastThirdStart - now;
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        return `Time until last third: ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    function displayCountdown() {
+        const container = document.createElement('div');
+        container.id = 'last-third-countdown';
+        container.style.position = 'fixed';
+        container.style.top = '0';
+        container.style.left = '0';
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.display = 'none';
+        container.style.background = 'url("starry-night.jpg") center/cover';
+        container.style.color = 'white';
+        container.style.fontSize = '2rem';
+        container.style.textAlign = 'center';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+        container.style.display = 'flex';
+        document.body.appendChild(container);
+
+        function updateCountdown() {
+            container.textContent = calculateLastThirdCountdown();
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        function toggleScreens() {
+            const now = new Date();
+            if (now.getHours() >= 22 && now.getMinutes() >= 20) {
+                if (container.style.display === 'none') {
+                    container.style.display = 'flex';
+                } else {
+                    container.style.display = 'none';
+                }
+            }
+        }
+        setInterval(toggleScreens, 15000);
+    }
+
+    displayCountdown();
+})();
+function addShootingStars() {
+    for (let i = 0; i < 5; i++) { // Adjust the number of stars
+        let star = document.createElement("div");
+        star.classList.add("shooting-star");
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDuration = `${2 + Math.random() * 3}s`;
+        document.getElementById("last-third-countdown").appendChild(star);
+    }
+}
+addShootingStars();

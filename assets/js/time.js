@@ -236,10 +236,7 @@ async function timeCalc() {
     </span>`;
 
   prayerBar.innerHTML = displayContent;
-}
-setInterval(timeCalc, 1000);
-timeCalc();
-// Existing prayer time script remains unchanged
+  / Existing prayer time script remains unchanged
 
 // New feature: Countdown to the last third of the night
 (function() {
@@ -320,3 +317,7 @@ function addShootingStars() {
     }
 }
 addShootingStars();
+
+}
+setInterval(timeCalc, 1000);
+timeCalc();

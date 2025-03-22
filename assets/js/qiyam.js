@@ -1,6 +1,7 @@
-// Existing prayer time script remains unchanged
+// Check if "Jummahtimecrm" already exists, and if so, use it
+const existingJummahtimecrm = window.Jummahtimecrm || getTimeFromURL(); // Fallback to getTimeFromURL if it doesn't exist
+window.Jummahtimecrm = existingJummahtimecrm; // Store it globally to avoid re-declaring
 
-// New feature: Countdown to the last third of the night
 (function() {
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -82,8 +83,6 @@ function getTimeFromURL() {
         return null;
     }
 }
-
-const Jummahtimecrm = getTimeFromURL(); // This will contain the extracted time
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),

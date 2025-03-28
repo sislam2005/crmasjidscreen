@@ -39,6 +39,7 @@ html, body {
     justify-content: center;
     height: 100%;
     width: 100%;
+	bottom: 10px
 }
 
 /* Arabic Styling */

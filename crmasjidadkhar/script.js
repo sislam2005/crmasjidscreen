@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     showDhikr(currentIndex);
   }
 
-  dhikrDisplay.style.paddingTop = "8vh";
+  dhikrDisplay.style.paddingTop = "10vh";
   dhikrDisplay.style.paddingBottom = "10vh";
   showDhikr(currentIndex);
   setInterval(nextDhikr, 10000); // Change every 5 seconds

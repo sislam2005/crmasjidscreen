@@ -1,0 +1,123 @@
+/* Reset and Fullscreen Styling */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Condiment", cursive;
+    background-color: #0096b7;
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Topbar */
+.topbar {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: #007892;
+    color: white;
+    padding: 15px;
+	padding-top:3%;
+    font-size: 3.5rem;
+    border-radius: 20px;
+    width: 80%;
+}
+
+/* Dhikr Container */
+#dhikrDisplay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Arabic Styling */
+.arabic {
+    font-size: 5rem;
+    text-align: center;
+    font-family: "Amiri", serif;
+    direction: rtl;
+    max-width: 90vw;
+}
+
+/* English Translation */
+.english {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: white;
+	font-family: Jaini;
+}
+
+/* Source */
+.source {
+	font-family: Jaini;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: #ccc;
+}
+
+/* Repeat Circle */
+.repeatCircle {
+    font-size: 3rem;
+    color: white;
+    background-color: #007892;
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007892;
+    padding: 15px;
+	padding-bottom: 7%;
+	padding-top:4%;
+    border-radius: 15px;
+}
+
+.footerLogo {
+    width: 5%;
+    margin-right: 10px;
+}
+
+.footerLink {
+	font-family: Jaini;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .arabic {
+        font-size: 3.5rem;
+    }
+    .english {
+        font-size: 1.5rem;
+    }
+    .repeatCircle {
+        width: 6rem;
+        height: 6rem;
+        font-size: 2.5rem;
+    }
+}

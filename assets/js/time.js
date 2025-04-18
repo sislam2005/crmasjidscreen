@@ -166,11 +166,13 @@ async function timeCalc() {
     jumuah1iqamahmoment = moment(today + jamaattoday.jumuah1, 'YYYY-MM-DD HH:mm');
     jumuah2iqamahmoment = moment(today + jamaattoday.jumuah2, 'YYYY-MM-DD HH:mm');
     jumuahdhuhr = Jummahtimecrm;
+	dhuhrlabel = event[2].en} | {event[2].ar
     dhuhriqamahmoment = jumuah1iqamahmoment;
     event[2].iqamah = jumuahdhuhr;
   } else {
     dhuhriqamahmoment = moment(today + jamaattoday.dhuhr, 'YYYY-MM-DD HH:mm');
     jumuahdhuhr = jamaattoday.dhuhr.trim();
+	dhuhrlabel = 'Jummah | الجمعة'
   }
   let asriqamahmoment = moment(today + jamaattoday.asr, 'YYYY-MM-DD HH:mm');
   let maghribiqamahmoment = moment(today + jamaattoday.maghrib, 'YYYY-MM-DD HH:mm');
@@ -219,7 +221,7 @@ async function timeCalc() {
       <span class='iqamah'>${jamaattoday.fajr.trim()}</span>
     </span>
     </span><span class='prayer${dhuhr}'>
-      <span class='event'>${event[2].en} | ${event[2].ar}</span>
+      <span class='event'>${dhuhrlabel}</span>
       <span class='iqamah'>${jumuahdhuhr}</span>
     </span><span class='prayer${asr}'>
       <span class='event'>${event[3].en} | ${event[3].ar}</span>

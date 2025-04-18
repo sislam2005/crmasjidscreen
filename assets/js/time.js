@@ -162,18 +162,19 @@ async function timeCalc() {
 
   let fajriqamahmoment = moment(today + jamaattoday.fajr, 'YYYY-MM-DD HH:mm');
   let dhuhriqamahmoment, jumuah1iqamahmoment, jumuah2iqamahmoment, jumuahdhuhr;
-  if (day === 4) {
-    jumuah1iqamahmoment = moment(today + jamaattoday.jumuah1, 'YYYY-MM-DD HH:mm');
-    jumuah2iqamahmoment = moment(today + jamaattoday.jumuah2, 'YYYY-MM-DD HH:mm');
-    jumuahdhuhr = Jummahtimecrm;
-	dhuhrlabel = event[2].en} | {event[2].ar
-    dhuhriqamahmoment = jumuah1iqamahmoment;
-    event[2].iqamah = jumuahdhuhr;
-  } else {
-    dhuhriqamahmoment = moment(today + jamaattoday.dhuhr, 'YYYY-MM-DD HH:mm');
-    jumuahdhuhr = jamaattoday.dhuhr.trim();
-	dhuhrlabel = 'Jummah | الجمعة'
-  }
+	if (day === 4) {
+	  jumuah1iqamahmoment = moment(`${today} ${jamaattoday.jumuah1}`, 'YYYY-MM-DD HH:mm');
+	  jumuah2iqamahmoment = moment(`${today} ${jamaattoday.jumuah2}`, 'YYYY-MM-DD HH:mm');
+	  jumuahdhuhr = Jummahtimecrm;
+	  dhuhrlabel = `${event[2].en} | ${event[2].ar}`;
+	  dhuhriqamahmoment = jumuah1iqamahmoment;
+	  event[2].iqamah = jumuahdhuhr;
+	} else {
+	  dhuhriqamahmoment = moment(`${today} ${jamaattoday.dhuhr}`, 'YYYY-MM-DD HH:mm');
+	  jumuahdhuhr = jamaattoday.dhuhr.trim();
+	  dhuhrlabel = 'Dhuhr | الظهر';
+	}
+
   let asriqamahmoment = moment(today + jamaattoday.asr, 'YYYY-MM-DD HH:mm');
   let maghribiqamahmoment = moment(today + jamaattoday.maghrib, 'YYYY-MM-DD HH:mm');
   let ishaiqamahmoment = moment(today + jamaattoday.isha, 'YYYY-MM-DD HH:mm');
